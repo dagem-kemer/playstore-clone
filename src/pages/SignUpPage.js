@@ -11,24 +11,22 @@ const SignUpPage = () => {
       </div>
 
       <div>
-        <div>
-          <span className="block mx-auto w-auto">
-            <Logo />
-          </span>
-          <h1 className="text-2xl mt-4">Create your Google Account</h1>
-        </div>
+        <span className="block mx-auto w-auto">
+          <Logo />
+        </span>
+        <h1 className="text-2xl mt-4">Create your Google Account</h1>
 
         <form className="mt-8 text-sm">
           <div className="flex flex-col sm:flex-row gap-5">
-            <Input label="First name"/>
-            <Input label="Last name"/>
+            <Input label="First name" />
+            <Input label="Last name" />
           </div>
           <div>
             {/* <input
               className="border-whiteGrey border p-2 grow rounded w-full "
               placeholder="User name"
             /> */}
-            <Input label="Username" className="mt-5"/>
+            <Input label="Username" className="mt-5" />
             <p className="ml-3 mt-1 text-darkGrey">
               You will need to confirm this email belongs to you.
             </p>
@@ -40,9 +38,8 @@ const SignUpPage = () => {
             </button>
           </div>
           <div className="mt-8 flex flex-col sm:flex-row gap-5">
-            
             <Input label="Password" defaultError="Enter a password" />
-            <Input label="Confirm"/>
+            <Input label="Confirm" />
           </div>
 
           <p className="ml-3 mt-1 text-darkGrey">

@@ -3,7 +3,7 @@ import classNames from "classnames";
 import AlertIcon from "../icons/AlertIcon";
 
 // TODO: removeDefaultError
-const Input = ({ label, className, defaultError }) => {
+const Input = ({ label, className, defaultError, large }) => {
   const inputRef = useRef();
 
   const [isFocused, setIsFocused] = useState(false);
@@ -14,7 +14,9 @@ const Input = ({ label, className, defaultError }) => {
   }, []);
 
   let labelStyle = classNames({
-    "absolute left-0 top-2 p-2 transition duration-200": true,
+    "py-3 px-4": large,
+    "p-2": !large,
+    "absolute left-0 top-2 transition duration-200": true,
     "py-0 -translate-y-1/2 bg-white scale-90": isFocused || error != null,
     "text-skyBlue": isFocused && error == null,
     "text-alertRed": error != null,
@@ -22,7 +24,9 @@ const Input = ({ label, className, defaultError }) => {
   });
 
   let inputStyle = classNames({
-    "w-full p-2  border rounded": true,
+    "py-3 px-4": large,
+    "p-2": !large,
+    "w-full  border rounded": true,
     "border-whiteGrey": !isFocused && error == null,
     "border-alertRed outline-alertRed": error != null,
     "outline-skyBlue border-2": isFocused,

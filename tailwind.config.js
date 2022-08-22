@@ -12,7 +12,7 @@ module.exports = {
         alertRed: '#d93025'
       },
       fontFamily: {
-        googleFont: 'roboto,"Noto Sans Myanmar UI",arial,sans-serif'
+        googleFont: 'Roboto,RobotoDraft,Helvetica,Arial,sans-serif'
       },
       keyframes: {
         marquee: {
