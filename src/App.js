@@ -1,8 +1,10 @@
+import LoginPage from "./pages/login";
+import SignUpPage from "./pages/SignUpPage";
+
 function App() {
   return (
-    <div className="App">
-      <h1>Hello World</h1>
-    </div>
+    <LoginPage />
+    // <SignUpPage/>
   );
 }
 
