@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import ListWrapper from "./ListWrapper";
 export default function List(props) {
   return (
     <React.Fragment>
-      <main>
+      <Link to="./x">
         <div className="bg-white rounded-lg mx-4 my-8 pt-4  overflow-hidden shadow ">
           <img
             src={`./Images/${props.ImageSrc}`}
@@ -24,13 +25,8 @@ export default function List(props) {
             </div>
           </div>
           <hr className="mt-6 " />
-          {props.price && parseFloat(props.price) > 0 ? (
-            <p className="py-4 lg:ml-4 font-bold">Price:{props.price} Birr</p>
-          ) : (
-            <p className="py-4 lg:ml-4  font-bold">Free</p>
-          )}
         </div>
-      </main>
+      </Link>
     </React.Fragment>
   );
 }
