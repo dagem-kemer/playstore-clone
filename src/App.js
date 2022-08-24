@@ -6,9 +6,6 @@ import WelcomePage from "./pages/WelcomPage";
 
 function App() {
   return (
-    // <LoginPage />
-    // <SignUpPage/>
-    // <WelcomePage/>
     <Routes>
       <Route path="/sign-in/*" element={<LoginPage />}>
         <Route path="*" element={<EmailPage />}/>
