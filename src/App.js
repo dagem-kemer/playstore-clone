@@ -1,31 +1,21 @@
-import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import LoginPage from "./pages/login";
+import SignUpPage from "./pages/SignUpPage";
+import ListPage from "./pages/ListPage";
 import React from "react";
-import List from "./Components/List";
-import NavBar from "./Components/NavBar";
-import Search from "./Components/Search";
-import ListWrapper from "./Components/ListWrapper";
 function App() {
   return (
-    <React.Fragment>
-      <NavBar />
-      <Search />
-      <ListWrapper>
-        <List
-          Name="Apex legends"
-          type="Game"
-          price="300"
-          rating={5}
-          ImageSrc="Apex.jpg"
-        />
-        <List
-          Name="TikTok"
-          type="Social"
-          price="0"
-          rating={4.9}
-          ImageSrc="calc.jpg"
-        />
-      </ListWrapper>
-    </React.Fragment>
+    <Routes>
+      <Route index element={<ListPage />} />
+      <Route path="*" element={<ListPage />} />
+      <Route path="/sign-in/*" element={<LoginPage />} />
+      <Route path="/sign-up" element={<SignUpPage />} />
+      <Route path="/List-page/*">
+        <Route index element={<ListPage />} />
+        <Route path="sign-in" element={<LoginPage />} />
+        <Route path="sign-up" element={<SignUpPage />} />
+      </Route>
+    </Routes>
   );
 }
 

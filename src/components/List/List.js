@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ListWrapper from "./ListWrapper";
+import styles from "./List.module.css";
+
 export default function List(props) {
   return (
     <React.Fragment>
@@ -14,12 +15,18 @@ export default function List(props) {
           <p className="text-green-800 mt-2 text-center text-2xl">
             {props.Name}
           </p>
-          <div className="text-center ">
-            <div className="List">
-              <img src="./Images/star.jpg" width={35} className="star" />
-              <span className="Rating">{props.rating}</span>
+          {/* <div className="text-center "> */}
+          <div>
+            <div className={`${styles.List}`}>
+              <img
+                alt="can not find src"
+                className={`${styles.star}`}
+                src="./Images/star.jpg"
+                width={35}
+              />
+              <span className={`${styles.Rating}`}>{props.rating}</span>
 
-              <div className="ml-72  mt-6 bg-red-100 px-4 text-center rounded">
+              <div className="2xl:ml-72 xl:ml-64 lg:ml-52 md:ml-64 sm:ml-96 ml-72  mt-6 bg-red-100 px-4 text-center rounded">
                 {props.type}
               </div>
             </div>

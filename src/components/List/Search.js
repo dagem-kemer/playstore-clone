@@ -1,11 +1,13 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
+import styles from "./search.module.css";
+
 export default function Search() {
   return (
     // <div className="text-center ">
-    <div className="search">
+    <div className={`${styles.search}`}>
       <span>
-        <FaSearch className="icon"></FaSearch>
+        <FaSearch className={`${styles.icon}`}></FaSearch>
       </span>
 
       <input
