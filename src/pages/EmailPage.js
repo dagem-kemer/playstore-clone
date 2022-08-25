@@ -34,7 +34,7 @@ const EmailPage = () => {
       if (resp.ok) {
         resp.json().then((data) => {
           dispatch(Loginslice.login(data.idToken));
-          navigate("/");
+          navigate("/List-page");
         });
       } else {
         resp.json().then((data) => alert(data.error.message));
@@ -67,7 +67,7 @@ const EmailPage = () => {
 
         <div className="flex justify-between pt-12 pb-4">
           <Link
-            to="/sign-up"
+            to="/List-page/sign-up"
             className="text-skyBlue hover:bg-skyBlue rounded hover:bg-opacity-5 py-2 px-3"
           >
             Create account
