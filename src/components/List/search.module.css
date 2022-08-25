@@ -1,0 +1,9 @@
+.search {
+  display: flex;
+  justify-content: center;
+}
+.icon {
+  position: absolute;
+  margin-top: 13px;
+  margin-left: 10px;
+}
