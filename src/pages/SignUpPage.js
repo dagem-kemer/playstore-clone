@@ -1,6 +1,6 @@
 import Logo from "../components/icons/Logo";
 import Input from "../components/ui/Input";
-
+import { Link } from "react-router-dom";
 const SignUpPage = () => {
   return (
     <div className="sm:border font-googleFont relative overflow-hidden border-whiteGrey w-fit flex-start p-6 sm:p-12 sm:rounded-xl mx-auto sm:my-12 lg:flex gap-5">
@@ -52,9 +52,12 @@ const SignUpPage = () => {
             </label>
           </div>
           <div className="flex justify-between pt-12">
-            <button className="text-skyBlue font-bold hover:bg-skyBlue hover:bg-opacity-5 py-2 px-3 rounded">
+            <Link
+              to="/sign-in"
+              className="text-skyBlue font-bold hover:bg-skyBlue hover:bg-opacity-5 py-2 px-3 rounded"
+            >
               Sign In Instead
-            </button>
+            </Link>
             <button className="bg-skyBlue text-white px-5 py-2 rounded hover:bg-darkBlue hover:shadow">
               Sign Up
             </button>

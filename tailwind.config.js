@@ -6,25 +6,25 @@ module.exports = {
       colors: {
         skyBlue: "#1a73e8",
         whiteGrey: "#dadce0",
-        darkGrey: '#5f6368',
-        mediumGrey: ' #202124',
-        darkBlue: '#1b66ca',
-        alertRed: '#d93025'
+        darkGrey: "#5f6368",
+        mediumGrey: " #202124",
+        darkBlue: "#1b66ca",
+        alertRed: "#d93025",
       },
       fontFamily: {
-        googleFont: 'Roboto,RobotoDraft,Helvetica,Arial,sans-serif'
+        googleFont: "Roboto,RobotoDraft,Helvetica,Arial,sans-serif",
       },
       keyframes: {
         marquee: {
-          '0%': {transform: 'translate(-95%, 0)'},
-          '50%': {transform: 'translate(20%, 0)'},
-          '100%': {transform: 'translate(105%, 0)'}
-        }
+          "0%": { transform: "translate(-95%, 0)" },
+          "50%": { transform: "translate(20%, 0)" },
+          "100%": { transform: "translate(105%, 0)" },
+        },
       },
       animation: {
-        marquee: 'marquee 1s ease-in infinite'
-      }
+        marquee: "marquee 1s ease-in infinite",
+      },
     },
   },
   plugins: [],
-}
+};

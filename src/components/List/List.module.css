@@ -1,0 +1,15 @@
+.List {
+  display: flex;
+  justify-content: flex-start;
+}
+.star {
+  position: absolute;
+  margin-top: 20px;
+  margin-left: 110px;
+}
+.Rating {
+  position: absolute;
+  margin-top: 20px;
+  margin-left: 90px;
+  margin-bottom: 2px;
+}
