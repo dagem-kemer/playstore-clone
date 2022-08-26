@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import Logo from "../components/icons/Logo";
-import Input from "../components/ui/Input";
 
 const LoginPage = () => {
   return (
@@ -13,7 +12,7 @@ const LoginPage = () => {
           </span>
         </div>
 
-        <Outlet/>
+        <Outlet />
       </div>
     </div>
   );
