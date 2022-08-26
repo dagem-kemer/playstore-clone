@@ -3,12 +3,15 @@ import classNames from "classnames";
 import AlertIcon from "../icons/AlertIcon";
 
 // TODO: removeDefaultError
-const Input = ({ label, className, defaultError, large }) => {
+const Input = ({ label, className, defaultError, large, inputValue }) => {
   const inputRef = useRef();
-
+  const [value, setValue] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const [error, setError] = useState(defaultError);
-
+  const changeHandler = (event) => {
+    setValue(event.target.value);
+    inputValue(event.target.value);
+  };
   useEffect(() => {
     setIsFocused(inputRef.current === document.activeElement);
   }, []);
@@ -42,6 +45,8 @@ const Input = ({ label, className, defaultError, large }) => {
       <input
         className={inputStyle}
         ref={inputRef}
+        value={value}
+        onChange={changeHandler}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       />

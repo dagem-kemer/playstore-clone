@@ -1,23 +1,24 @@
-import { Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/login";
 import SignUpPage from "./pages/SignUpPage";
-import EmailPage from "./pages/EmailPage";
-import WelcomePage from "./pages/WelcomPage";
-
+import ListPage from "./pages/ListPage";
+import React from "react";
+import DetailPage from "./pages/DetailPage";
 function App() {
   return (
-    // <LoginPage />
-    // <SignUpPage/>
-    // <WelcomePage/>
     <Routes>
-      <Route path="/sign-in/*" element={<LoginPage />}>
-        <Route path="*" element={<EmailPage />}/>
-        <Route path="password" element={<WelcomePage/>}/>
-      </Route>
+      <Route index element={<ListPage />} />
+      <Route path="*" element={<ListPage />} />
+      <Route path="/sign-in/*" element={<LoginPage />} />
       <Route path="/sign-up" element={<SignUpPage />} />
+      <Route path="/List-page/*">
+        <Route index element={<ListPage />} />
+        <Route path="sign-in" element={<LoginPage />} />
+        <Route path="sign-up" element={<SignUpPage />} />
+        <Route path=":list" element={<DetailPage />} />
+      </Route>
     </Routes>
   );
 }
 
 export default App;
-console.log("Hello World")
