@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import { ValidationContext } from "../store/ValidationContext";
+import { ValidationContext } from "../../store/ValidationContext";
 import { useNavigate } from "react-router-dom";
-import TextButton from "./ui/TextButton";
-import ActionButton from "./ui/ActionButton";
-import SignUpInput from "./ui/SignUpInput";
-import ProgressIndicator from "./ui/ProgressIndicator";
+import TextButton from "../ui/TextButton";
+import ActionButton from "../ui/ActionButton";
+import SignUpInput from "../ui/SignUpInput";
+import ProgressIndicator from "../ui/ProgressIndicator";
 import { createPortal } from "react-dom";
-import ErrorPopup from "./ui/ErrorPopup";
+import ErrorPopup from "../ui/ErrorPopup";
 
 const API_KEY = "AIzaSyCK-f7QByEKK1iV49IKl7o-EnP8ZzYi9DE";
 const URL = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`;

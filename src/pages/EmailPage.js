@@ -62,7 +62,6 @@ const EmailPage = () => {
         <Input label="Password" large={true} inputValue={passwordHandler}
           className="mb-4"
         />
-        <Input label="Password" large={true} inputValue={passwordHandler} />
         <p className="text-skyBlue mt-2 text-sm font-bold ">Forgot Password?</p>
         <p className="text-sm mt-8 text-darkGrey">
           Not your computer? Use Guest mode to sign in privately.
