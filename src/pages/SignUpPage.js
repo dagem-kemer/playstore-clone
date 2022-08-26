@@ -1,5 +1,5 @@
 import Logo from "../components/icons/Logo";
-import SignUpForm from "../components/SignUpForm";
+import SignUpForm from "../components/auth/SignUpForm";
 import ValidationContextProvider from "../store/ValidationContext";
 
 const SignUpPage = () => {
