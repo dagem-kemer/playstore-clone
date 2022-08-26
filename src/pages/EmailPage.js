@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
 import Input from "../components/ui/Input";
 import { Loginslice } from "../store/store";
 import { useDispatch } from "react-redux/es/exports";
@@ -52,7 +50,7 @@ const EmailPage = () => {
         <p className="mt-2 text-mediumGrey">Use your Google Account</p>
       </div>
 
-      <form className="pt-6" onSubmit={SubmitHandler} onSubmit={SubmitHandler}>
+      <form className="pt-6" onSubmit={SubmitHandler} >
         <Input
          
           label="Email or phone"
@@ -63,7 +61,6 @@ const EmailPage = () => {
         />
         <Input label="Password" large={true} inputValue={passwordHandler}
           className="mb-4"
-          inputValue={emailHandler}
         />
         <Input label="Password" large={true} inputValue={passwordHandler} />
         <p className="text-skyBlue mt-2 text-sm font-bold ">Forgot Password?</p>
