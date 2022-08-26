@@ -1,5 +1,6 @@
 import Logo from "../components/icons/Logo";
 import SignUpForm from "../components/SignUpForm";
+import ValidationContextProvider from "../store/ValidationContext";
 
 const SignUpPage = () => {
   return (
@@ -9,8 +10,9 @@ const SignUpPage = () => {
           <Logo />
         </span>
         <h1 className="text-2xl mt-4">Create your Google Account</h1>
-
-        <SignUpForm />
+        <ValidationContextProvider>
+          <SignUpForm />
+        </ValidationContextProvider>
       </div>
       <div className="hidden lg:block">
         <figure className="w-[224px] mt-20">

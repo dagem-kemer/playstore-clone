@@ -3,7 +3,7 @@ import { ValidationContext } from "../store/ValidationContext";
 import { useNavigate } from "react-router-dom";
 import TextButton from "./ui/TextButton";
 import ActionButton from "./ui/ActionButton";
-import Input from "./ui/Input";
+import SignUpInput from "./ui/SignUpInput";
 import ProgressIndicator from "./ui/ProgressIndicator";
 import { createPortal } from "react-dom";
 import ErrorPopup from "./ui/ErrorPopup";
@@ -108,14 +108,14 @@ const SignUpForm = () => {
         {isRequesting && <ProgressIndicator />}
 
         <div className="flex flex-col sm:flex-row gap-5">
-          <Input
+          <SignUpInput
             label="First name"
             validator={defaultValidator("first name")}
           />
-          <Input label="Last name" validator={defaultValidator("last name")} />
+          <SignUpInput label="Last name" validator={defaultValidator("last name")} />
         </div>
 
-        <Input
+        <SignUpInput
           label="Email address"
           className="mt-5"
           validator={defaultValidator("email address")}
@@ -129,13 +129,13 @@ const SignUpForm = () => {
         </div>
 
         <div className="mt-8 flex flex-col sm:flex-row gap-5">
-          <Input
+          <SignUpInput
             label="Password"
             validator={defaultValidator("password")}
             isPassword={showPassword}
             setValue={setPassword}
           />
-          <Input
+          <SignUpInput
             label="Confirm"
             isPassword={true}
             validator={confirmValidator}
