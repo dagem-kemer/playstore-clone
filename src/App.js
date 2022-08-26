@@ -6,14 +6,11 @@ import WelcomePage from "./pages/WelcomPage";
 
 function App() {
   return (
-    // <LoginPage />
-    // <SignUpPage/>
-    // <WelcomePage/>
     <Routes>
-      <Route path="/sign-in/*" element={<LoginPage />}>
+      {/* <Route path="/sign-in/*" element={<LoginPage />}>
         <Route path="*" element={<EmailPage />}/>
         <Route path="password" element={<WelcomePage/>}/>
-      </Route>
+      </Route> */}
       <Route path="/sign-up" element={<SignUpPage />} />
     </Routes>
   );

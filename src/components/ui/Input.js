@@ -1,17 +1,35 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import classNames from "classnames";
 import AlertIcon from "../icons/AlertIcon";
+import { ValidationContext } from "../../store/ValidationContext";
 
-// TODO: removeDefaultError
-const Input = ({ label, className, defaultError, large }) => {
+const Input = ({
+  label,
+  className,
+  validator,
+  large,
+  isPassword,
+  setValue,
+}) => {
   const inputRef = useRef();
+  const validationCtx = useContext(ValidationContext);
 
   const [isFocused, setIsFocused] = useState(false);
-  const [error, setError] = useState(defaultError);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setIsFocused(inputRef.current === document.activeElement);
   }, []);
+
+  useEffect(() => {
+    if (validationCtx.validate !== null) {
+      const errorMsg = validator(inputRef.current.value);
+      setError(errorMsg);
+
+      validationCtx.addFields(label, inputRef.current.value);
+      validationCtx.validateFileds(label, !errorMsg);
+    }
+  }, [validationCtx.validate]);
 
   let labelStyle = classNames({
     "py-3 px-4": large,
@@ -41,17 +59,25 @@ const Input = ({ label, className, defaultError, large }) => {
     <div className={"relative pt-2 " + className}>
       <input
         className={inputStyle}
+        type={isPassword ? "password" : "text"}
         ref={inputRef}
+        onChange={(e) => {
+          if (setValue) setValue(e.target.value);
+        }}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       />
-      <label className={labelStyle} onClick={focustInput}>
-        {label}
-      </label>
+
+      {!inputRef.current?.value && (
+        <label className={labelStyle} onClick={focustInput}>
+          {label}
+        </label>
+      )}
+
       {error && (
-        <p className="text-alertRed mt-1">
+        <p className="text-alertRed text-xs mt-1">
           <AlertIcon />
-          <span className="ml-2">{defaultError}</span>
+          <span className="ml-2">{error}</span>
         </p>
       )}
     </div>
