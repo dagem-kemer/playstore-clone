@@ -7,10 +7,11 @@ export default function List(props) {
   const isLoggedIn = !!idtoken;
   return (
     <React.Fragment>
-      <Link to="/1">
+      <Link to={props.LinkTo}>
         <div className="bg-white rounded-lg mx-4 my-8 pt-4  overflow-hidden shadow ">
           <img
-            src={`./Images/${props.ImageSrc}`}
+            // src={`./Images/${props.ImageSrc}`}
+            src={props.ImageSrc}
             className=" w-5/6 h-48 rounded-t-lg mt-2 mx-auto "
             alt="Error loading"
           />
