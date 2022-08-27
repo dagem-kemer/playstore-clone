@@ -1,6 +1,9 @@
 import react from "react";
 import "./output.css";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 const Applogo = () => {
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
   return (
     <div>
       <div class="flex">
@@ -21,13 +24,23 @@ const Applogo = () => {
         </ul>
       </div>
       <div>
-        <a
-          href="/components.zip"
-          download="component"
-          class="mr-8 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-8 rounded-full"
-        >
-          Install
-        </a>
+        {isLoggedIn && (
+          <a
+            href="/components.zip"
+            download="component"
+            class="mr-8 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-8 rounded-full"
+          >
+            Install
+          </a>
+        )}
+        {!isLoggedIn && (
+          <Link
+            to="/sign-in"
+            class="mr-8 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-8 rounded-full"
+          >
+            Install
+          </Link>
+        )}
         <button class="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded">
           Add to wishlist
         </button>

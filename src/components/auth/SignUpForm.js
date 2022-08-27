@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { ValidationContext } from "../../store/ValidationContext";
+import { ValidationContext } from "../../Store/ValidationContext";
 import { useNavigate } from "react-router-dom";
 import TextButton from "../ui/TextButton";
 import ActionButton from "../ui/ActionButton";
@@ -59,18 +59,17 @@ const SignUpForm = () => {
             method: "POST",
             body: JSON.stringify({ email, password, returnSecureToken: true }),
           });
-          
+
           const data = await authResponse.json();
-          console.log(data)
+          console.log(data);
           if (!authResponse.ok) {
             setFormError({
-              title: 'Authentication Error',
-              description: 'Unable to create user. ' + data.error.message
-            })
+              title: "Authentication Error",
+              description: "Unable to create user. " + data.error.message,
+            });
             throw new Error("Error happend");
           }
           // TODO: do something with the data;
-          
 
           const dbResponse = await fetch(DB_URL, {
             method: "POST",
@@ -81,12 +80,12 @@ const SignUpForm = () => {
             }),
           });
           const dbData = await dbResponse.json();
-          console.log(dbData)
+          console.log(dbData);
 
           if (!dbResponse.ok) {
             setFormError({
               title: "Database Error",
-              description: "Unable to save your data " + + data.error.message,
+              description: "Unable to save your data " + +data.error.message,
             });
             throw new Error("Unable to save user data");
           }
@@ -112,7 +111,10 @@ const SignUpForm = () => {
             label="First name"
             validator={defaultValidator("first name")}
           />
-          <SignUpInput label="Last name" validator={defaultValidator("last name")} />
+          <SignUpInput
+            label="Last name"
+            validator={defaultValidator("last name")}
+          />
         </div>
 
         <SignUpInput
