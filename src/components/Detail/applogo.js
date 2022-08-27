@@ -1,9 +1,9 @@
 import react from "react";
 import "./output.css";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 const Applogo = () => {
-  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const idToken = localStorage.getItem("idToken");
+  const isLoggedIn = !!idToken;
   return (
     <div>
       <div class="flex">

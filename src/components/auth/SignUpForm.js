@@ -163,7 +163,7 @@ const SignUpForm = () => {
         </div>
 
         <div className="flex justify-between pt-12">
-          <TextButton dest="#" label="Sign in instead" />
+          <TextButton dest="/sign-in" label="Sign in instead" />
           <ActionButton label="Sign Up" />
         </div>
       </form>
