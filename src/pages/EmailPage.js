@@ -1,20 +1,17 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Input from "../components/ui/Input";
+import SignUpInput from "../components/ui/SignUpInput";
 import { Loginslice } from "../store/store";
 import { useDispatch } from "react-redux/es/exports";
 
 const EmailPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const emailHandler = (email) => {
-    setEmail(email);
-  };
-  const passwordHandler = (pass) => {
-    setPassword(pass);
-  };
+
   const SubmitHandler = (event) => {
     event.preventDefault();
     fetch(
@@ -50,18 +47,23 @@ const EmailPage = () => {
         <p className="mt-2 text-mediumGrey">Use your Google Account</p>
       </div>
 
-      <form className="pt-6" onSubmit={SubmitHandler} >
-        <Input
-         
+      <form className="pt-6" onSubmit={SubmitHandler}>
+        <SignUpInput
           label="Email or phone"
-         
+          validator={() => {}}
           large={true}
           className="mb-4"
-          inputValue={emailHandler}
+          setValue={setEmail}
         />
-        <Input label="Password" large={true} inputValue={passwordHandler}
+
+        <SignUpInput
+          label="Password"
+          large={true}
+          setValue={setPassword}
+          validator={() => {}}
           className="mb-4"
         />
+
         <p className="text-skyBlue mt-2 text-sm font-bold ">Forgot Password?</p>
         <p className="text-sm mt-8 text-darkGrey">
           Not your computer? Use Guest mode to sign in privately.

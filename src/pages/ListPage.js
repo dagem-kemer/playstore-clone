@@ -4,12 +4,14 @@ import NavBar from "../components/List/NavBar";
 import Search from "../components/List/Search";
 import ListWrapper from "../components/List/ListWrapper";
 import { Outlet } from "react-router-dom";
+import AppBar from "../components/Detail/AppBar";
 
 export default function ListPage() {
   return (
     <React.Fragment>
-      <NavBar />
-      <Search />
+      {/* <NavBar /> */}
+      <AppBar />
+      {/* <Search /> */}
       <ListWrapper>
         <List
           Name="Apex legends"
