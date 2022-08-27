@@ -1,6 +1,4 @@
 import react, { useEffect, useState, useContext } from "react";
-import { db } from "../FireBase/firebase-config";
-import { collection, getDocs } from "@firebase/firestore";
 
 import "./output.css";
 import { Link, useParams } from "react-router-dom";
@@ -10,12 +8,12 @@ import { DetailContext } from "../../App";
 const Applogo = () => {
   const params = useParams();
   const { detailData, setDetailData } = useContext(DetailContext);
-
   const idToken = localStorage.getItem("idToken");
   const isLoggedIn = !!idToken;
 
   let data = [];
   data = [...data, detailData.find((data) => data.id === params.list)];
+  const Name = data[0].Name;
   return (
     <div>
       {data.map((data) => (
@@ -45,7 +43,7 @@ const Applogo = () => {
             {isLoggedIn && (
               <a
                 href="/components.zip"
-                download="component"
+                download={Name}
                 class="mr-8 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-8 rounded-full"
               >
                 Install
