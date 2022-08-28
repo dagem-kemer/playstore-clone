@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import styles from "./NavBar.module.css";
-import { Loginslice } from "../../store/store";
+import { Loginslice } from "..//..//Store/store";
 
 export default function NavBar() {
   const idtoken = localStorage.getItem("idToken");
