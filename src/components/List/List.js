@@ -28,7 +28,7 @@ export default function List(props) {
               <p className=" text-md">{props.Name}</p>
               <p className=" text">{props.type}</p>
               <div className="flex items-baseline">
-                <span className="">{props.rating}</span>
+                <span className="">{Math.round(props.rating * 100) / 100}</span>
                 <StarIcon />
 
                 {/* <div className="2xl:ml-72 xl:ml-64 lg:ml-52 md:ml-64 sm:ml-96 ml-72  mt-6 bg-red-100 px-4 text-center rounded">
