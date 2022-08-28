@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import StarIcon from "../icons/StarIcon";
 import styles from "./List.module.css";
 
 export default function List(props) {
@@ -8,33 +9,55 @@ export default function List(props) {
   return (
     <React.Fragment>
       <Link to="/1">
-        <div className="bg-white rounded-lg mx-4 my-8 pt-4  overflow-hidden shadow ">
+        <div className="bg-white rounded-lg hover:bg-opacity-10 hover:bg-black mx-4 my-8 overflow-hidden w-[calc(75vw - 96px)] md:w-[calc(50vw-96px)] lg:w-[416px] p-3">
           <img
             src={`./Images/${props.ImageSrc}`}
-            className=" w-5/6 h-48 rounded-t-lg mt-2 mx-auto "
+            className=" w-full h-48 rounded-lg"
             alt="Error loading"
           />
-          <p className="text-green-800 mt-2 text-center text-2xl">
-            {props.Name}
-          </p>
-          <div>
-            <div className={`${styles.List}`}>
-              <img
-                alt="can not find src"
-                className={`${styles.star}`}
-                src="./Images/star.jpg"
-                width={35}
-              />
-              <span className={`${styles.Rating}`}>{props.rating}</span>
 
-              <div className="2xl:ml-72 xl:ml-64 lg:ml-52 md:ml-64 sm:ml-96 ml-72  mt-6 bg-red-100 px-4 text-center rounded">
-                {props.type}
+          <div className="flex my-4">
+            <div className="w-[64px] h-[64px] rounded-2xl  overflow-hidden">
+              <img
+                src={`./Images/${props.ImageSrc}`}
+                className="h-full w-full object-cover"
+              />
+            </div>
+
+            <div className="ml-4">
+              <p className=" text-md">{props.Name}</p>
+              <p className=" text">{props.Name}</p>
+              <div className="flex items-baseline">
+                <span className="">{props.rating}</span>
+                <StarIcon />
+
+                {/* <div className="2xl:ml-72 xl:ml-64 lg:ml-52 md:ml-64 sm:ml-96 ml-72  mt-6 bg-red-100 px-4 text-center rounded">
+                  {props.type}
+                </div> */}
               </div>
             </div>
           </div>
-          <hr className="mt-6 " />
         </div>
       </Link>
     </React.Fragment>
   );
 }
+
+{
+  /* <p className="text-green-800 mt-2 text-center text-2xl">{props.Name}</p>; */
+}
+// <div>
+//   <div className={`${styles.List}`}>
+// <img
+//   alt="can not find src"
+//   className={`${styles.star}`}
+//   src="./Images/star.jpg"
+//   width={35}
+// />
+// <span className={`${styles.Rating}`}>{props.rating}</span>
+
+// <div className="2xl:ml-72 xl:ml-64 lg:ml-52 md:ml-64 sm:ml-96 ml-72  mt-6 bg-red-100 px-4 text-center rounded">
+//   {props.type}
+// </div>
+//   </div>
+// </div>
