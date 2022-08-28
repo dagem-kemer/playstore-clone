@@ -1,9 +1,14 @@
 import { useEffect, useRef } from "react";
 import SearchIcon from "../icons/SearchIcon";
 
-const NavSearch = ({ dismiss }) => {
+const NavSearch = ({ dismiss, searchValue }) => {
   const inputRef = useRef();
-
+  const keyDownHandler = (event) => {
+    if (event.key === "Enter") {
+      // console.log(inputRef.current.value);
+      searchValue(inputRef.current.value);
+    }
+  };
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
@@ -19,6 +24,7 @@ const NavSearch = ({ dismiss }) => {
         className="grow outline-0"
         placeholder="Search for apps & games"
         onBlur={dismiss}
+        onKeyDown={keyDownHandler}
       />
     </div>
   );
