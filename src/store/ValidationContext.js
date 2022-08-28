@@ -1,4 +1,4 @@
-import {  createContext, useState } from "react";
+import { createContext, useState } from "react";
 
 export const ValidationContext = createContext({
   validate: false,
@@ -6,7 +6,7 @@ export const ValidationContext = createContext({
   invalidFields: new Set(),
   validateFileds: (field, isValid) => {},
   onValidate: () => {},
-  addFields: (field, value) => {}
+  addFields: (field, value) => {},
 });
 
 const ValidationContextProvider = ({ children }) => {
@@ -24,12 +24,13 @@ const ValidationContextProvider = ({ children }) => {
   };
 
   const addFields = (label, value) => {
-    setFields(prevFields => {
-      const newFields = {...prevFields};
+    setFields((prevFields) => {
+      const newFields = { ...prevFields };
       newFields[label] = value;
+
       return newFields;
-    })
-  }
+    });
+  };
 
   return (
     <ValidationContext.Provider

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import Input from "../components/ui/Input";
 import SignUpInput from "../components/ui/SignUpInput";
 import { Loginslice } from "../store/store";
 import { useDispatch } from "react-redux/es/exports";
@@ -48,6 +47,7 @@ const EmailPage = () => {
       </div>
 
       <form className="pt-6" onSubmit={SubmitHandler}>
+
         <SignUpInput
           label="Email or phone"
           validator={() => {}}
@@ -55,6 +55,7 @@ const EmailPage = () => {
           className="mb-4"
           setValue={setEmail}
         />
+
 
         <SignUpInput
           label="Password"

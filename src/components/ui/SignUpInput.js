@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, useContext } from "react";
 import classNames from "classnames";
 import AlertIcon from "../icons/AlertIcon";
-import { ValidationContext } from "../../store/ValidationContext";
+import { ValidationContext } from "../../Store/ValidationContext";
 
 const SignUpInput = ({
   label,
@@ -27,6 +27,7 @@ const SignUpInput = ({
       setError(errorMsg);
 
       validationCtx.addFields(label, inputRef.current.value);
+
       validationCtx.validateFileds(label, !errorMsg);
     }
   }, [validationCtx.validate]);

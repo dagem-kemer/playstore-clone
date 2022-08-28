@@ -8,7 +8,7 @@ export default function List(props) {
   const isLoggedIn = !!idtoken;
   return (
     <React.Fragment>
-      <Link to="/1">
+      <Link to={props.LinkTo}>
         <div className="bg-white rounded-lg hover:bg-opacity-10 hover:bg-black mx-4 my-8 overflow-hidden w-[calc(75vw - 96px)] md:w-[calc(50vw-96px)] lg:w-[416px] p-3">
           <img
             src={`./Images/${props.ImageSrc}`}
@@ -42,22 +42,3 @@ export default function List(props) {
     </React.Fragment>
   );
 }
-
-{
-  /* <p className="text-green-800 mt-2 text-center text-2xl">{props.Name}</p>; */
-}
-// <div>
-//   <div className={`${styles.List}`}>
-// <img
-//   alt="can not find src"
-//   className={`${styles.star}`}
-//   src="./Images/star.jpg"
-//   width={35}
-// />
-// <span className={`${styles.Rating}`}>{props.rating}</span>
-
-// <div className="2xl:ml-72 xl:ml-64 lg:ml-52 md:ml-64 sm:ml-96 ml-72  mt-6 bg-red-100 px-4 text-center rounded">
-//   {props.type}
-// </div>
-//   </div>
-// </div>

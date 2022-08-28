@@ -15,9 +15,12 @@ const loginSlice = createSlice({
     },
   },
 });
-export const Loginslice = loginSlice.actions;
-const store = configureStore({
-  reducer: loginSlice.reducer,
-});
 
+export const Loginslice = loginSlice.actions;
+
+const store = configureStore({
+  reducer: {
+    loginSlice: loginSlice.reducer,
+  },
+});
 export default store;

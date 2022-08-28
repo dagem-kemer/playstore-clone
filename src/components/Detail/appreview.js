@@ -1,10 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./output.css";
 import StarRating from "./starRate";
+import { collection, getDocs, addDoc } from "@firebase/firestore";
+import { db } from "../FireBase/firebase-config";
+import { useParams } from "react-router-dom";
 
 const Appreview = () => {
   const [reviewform, showreviewform] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [addComment, setAddComment] = useState("");
+  const [users, setUsers] = useState([]);
+  const commentHandler = (event) => {
+    setAddComment(event.target.value);
+  };
+  const params = useParams();
+  const AppDetailCollection = collection(db, "Comments");
+  const UserCollection = collection(db, "Users");
+  useEffect(() => {
+    const getAppDetail = async () => {
+      const data = await getDocs(AppDetailCollection);
+      setComments(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      const userdata = await getDocs(UserCollection);
+      setUsers(userdata.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    getAppDetail();
+  }, [reviewform]);
 
+  const appComments = comments.filter((data) => data.Id === params.list);
+  const AddReview = async () => {
+    showreviewform((prev) => !prev);
+    let use = users;
+    use = users.find((data) => data.email === "s122@gmail.com");
+    addDoc(AppDetailCollection, {
+      Id: params.list,
+      Name: use.firstName,
+      LastName: use.lastName,
+      Comment: addComment,
+      Rating: 2,
+    });
+  };
   return (
     <div>
       <div>
@@ -24,10 +58,11 @@ const Appreview = () => {
               type="text"
               id="large-input"
               class="ml-8 mt-4 block p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            ></input>
+              onChange={commentHandler}
+            />
 
             <button
-              onClick={() => showreviewform(!reviewform)}
+              onClick={AddReview}
               class=" ml-4 bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded"
             >
               Save Review
@@ -39,44 +74,34 @@ const Appreview = () => {
         <h3 class="font-bold text-2xl">Rates and reviews</h3>
       </div>
       <div>
-        <h5 class="font-bold">Yeabsira Abraham</h5>
-        <p class="mb-2">★★★☆☆</p>
-        <p class="mb-2">
-          Experience of creating a reel is a torture. It's about 50% chance when
-          you add a clip to get the error "could not add clip". If you try many
-          times and manage to add it, then fitting the clip to the music is
-          nearly impossible. First, you get errors "something went wrong" all
-          the time. Second, if you finally manage to do it in the editor, then
-          in the preview *suddenly* the video doesn't match the music as it does
-          during editing. It's incredibly frustrating to spend hours to create a
-          10sec video
-        </p>
-        <h5 class="font-bold">Samuel alemayehu</h5>
-        <p class="mb-2">★★☆☆☆</p>
+        {appComments.map((data) => (
+          <React.Fragment>
+            <h5 class="font-bold">{`${data.Name} ${data.LastName}`}</h5>
+            {data.Rating > 4 ? <p class="mb-2">★★★★★</p> : ""}
+            {data.Rating > 3 && data.Rating <= 4 ? (
+              <p class="mb-2">★★★★☆</p>
+            ) : (
+              ""
+            )}
+            {data.Rating > 2 && data.Rating <= 3 ? (
+              <p class="mb-2">★★★☆☆</p>
+            ) : (
+              ""
+            )}
+            {data.Rating > 1 && data.Rating <= 2 ? (
+              <p class="mb-2">★★☆☆☆</p>
+            ) : (
+              ""
+            )}
+            {data.Rating > 0 && data.Rating <= 1 ? (
+              <p class="mb-2">★★☆☆☆</p>
+            ) : (
+              ""
+            )}
 
-        <p class="mb-2">
-          Experience of creating a reel is a torture. It's about 50% chance when
-          you add a clip to get the error "could not add clip". If you try many
-          times and manage to add it, then fitting the clip to the music is
-          nearly impossible. First, you get errors "something went wrong" all
-          the time. Second, if you finally manage to do it in the editor, then
-          in the preview *suddenly* the video doesn't match the music as it does
-          during editing. It's incredibly frustrating to spend hours to create a
-          10sec video
-        </p>
-        <h5 class="font-bold">Dagem Tadesse</h5>
-        <p class="mb-2">★★★★☆</p>
-
-        <p class="mb-2">
-          Experience of creating a reel is a torture. It's about 50% chance when
-          you add a clip to get the error "could not add clip". If you try many
-          times and manage to add it, then fitting the clip to the music is
-          nearly impossible. First, you get errors "something went wrong" all
-          the time. Second, if you finally manage to do it in the editor, then
-          in the preview *suddenly* the video doesn't match the music as it does
-          during editing. It's incredibly frustrating to spend hours to create a
-          10sec video
-        </p>
+            <p class="mb-2">{data.Comment}</p>
+          </React.Fragment>
+        ))}
       </div>
       <div>
         <button class="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded">
