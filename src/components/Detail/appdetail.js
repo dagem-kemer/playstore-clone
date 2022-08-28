@@ -12,9 +12,6 @@ const Appdetail = () => {
 
   data = [data.find((data) => data.id === params.list)];
 
-  // let data = [];
-  // data = [...data, detailData.find((data) => data.id === params.list)];
-
   return (
     <div>
       {data.map((data) => (
