@@ -8,7 +8,7 @@ import NavSearch from "./NavSearch";
 import classNames from "classnames";
 
 const AppBar = () => {
-  const [isSearchShown, setIsSearchShown] = useState(true);
+  const [isSearchShown, setIsSearchShown] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {

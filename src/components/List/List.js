@@ -11,15 +11,15 @@ export default function List(props) {
       <Link to={props.LinkTo}>
         <div className="bg-white rounded-lg hover:bg-opacity-10 hover:bg-black mx-4 my-8 overflow-hidden w-[calc(75vw - 96px)] md:w-[calc(50vw-96px)] lg:w-[416px] p-3">
           <img
-            src={`./Images/${props.ImageSrc}`}
-            className=" w-full h-48 rounded-lg"
+            src={props.ImageSrc}
+            className=" w-full h-48 rounded-lg object-cover"
             alt="Error loading"
           />
 
           <div className="flex my-4">
             <div className="w-[64px] h-[64px] rounded-2xl  overflow-hidden">
               <img
-                src={`./Images/${props.ImageSrc}`}
+                src={props.ImageSrc}
                 className="h-full w-full object-cover"
               />
             </div>
