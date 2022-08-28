@@ -16,6 +16,9 @@ export default function ListPage() {
     const getAppDetail = async () => {
       const data = await getDocs(AppDetailCollection);
       setDetailData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      const localData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      localStorage.setItem("detailData", JSON.stringify(localData));
+      // console.log(JSON.parse(localStorage.getItem("detailData")));
     };
     getAppDetail();
   }, []);

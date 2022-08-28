@@ -26,7 +26,7 @@ export default function List(props) {
 
             <div className="ml-4">
               <p className=" text-md">{props.Name}</p>
-              <p className=" text">{props.Name}</p>
+              <p className=" text">{props.type}</p>
               <div className="flex items-baseline">
                 <span className="">{props.rating}</span>
                 <StarIcon />

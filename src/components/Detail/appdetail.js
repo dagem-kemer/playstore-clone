@@ -8,7 +8,12 @@ const Appdetail = () => {
   const { detailData, setDetailData } = useContext(DetailContext);
   const params = useParams();
   let data = [];
-  data = [...data, detailData.find((data) => data.id === params.list)];
+  data = [...JSON.parse(localStorage.getItem("detailData"))];
+
+  data = [data.find((data) => data.id === params.list)];
+
+  // let data = [];
+  // data = [...data, detailData.find((data) => data.id === params.list)];
 
   return (
     <div>

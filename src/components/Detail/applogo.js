@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 
 import "./output.css";
 import { Link, useParams } from "react-router-dom";
@@ -10,9 +10,10 @@ const Applogo = () => {
   const { detailData, setDetailData } = useContext(DetailContext);
   const idToken = localStorage.getItem("idToken");
   const isLoggedIn = !!idToken;
-
+  JSON.parse(localStorage.getItem("detailData"));
   let data = [];
-  data = [...data, detailData.find((data) => data.id === params.list)];
+  data = [...JSON.parse(localStorage.getItem("detailData"))];
+  data = [data.find((data) => data.id === params.list)];
   const Name = data[0].Name;
   return (
     <div>
@@ -43,6 +44,7 @@ const Applogo = () => {
             {isLoggedIn && (
               <a
                 href="/components.zip"
+                // download={Name}
                 download={Name}
                 class="mr-8 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-8 rounded-full"
               >
