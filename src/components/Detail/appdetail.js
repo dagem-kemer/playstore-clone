@@ -38,7 +38,7 @@ const Appdetail = () => {
           <div>
             <p class="font-bold text-2xl mb-2">About this app</p>
             <p class="non-italic">{data.Description}</p>
-            <pre class="font-bold mb-4">Updated on Aug 15 2022</pre>
+            <p class="font-bold mb-4">Updated on Aug 15 2022</p>
           </div>
         </React.Fragment>
       ))}
