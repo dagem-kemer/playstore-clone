@@ -9,12 +9,10 @@ import { db } from "../components/FireBase/firebase-config";
 import { DetailContext } from "../App";
 export default function ListPage() {
   const { detailData, setDetailData } = useContext(DetailContext);
-  // const [appDetail, setAppDetail] = useState([]);
   const AppDetailCollection = collection(db, "Apps");
   useEffect(() => {
     const getAppDetail = async () => {
       const data = await getDocs(AppDetailCollection);
-      // setAppDetail(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
       setDetailData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
     getAppDetail();

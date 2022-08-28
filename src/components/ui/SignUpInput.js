@@ -27,6 +27,7 @@ const SignUpInput = ({
       setError(errorMsg);
 
       validationCtx.addFields(label, inputRef.current.value);
+
       validationCtx.validateFileds(label, !errorMsg);
     }
   }, [validationCtx.validate]);

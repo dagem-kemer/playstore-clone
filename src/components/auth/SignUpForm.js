@@ -7,6 +7,8 @@ import SignUpInput from "../ui/SignUpInput";
 import ProgressIndicator from "../ui/ProgressIndicator";
 import { createPortal } from "react-dom";
 import ErrorPopup from "../ui/ErrorPopup";
+import { collection, addDoc } from "@firebase/firestore";
+import { db } from "../FireBase/firebase-config";
 
 const API_KEY = "AIzaSyCK-f7QByEKK1iV49IKl7o-EnP8ZzYi9DE";
 const URL = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`;
@@ -21,7 +23,10 @@ const defaultValidator = (field) => {
 };
 
 const SignUpForm = () => {
+  const AppDetailCollection = collection(db, "Users");
+
   const validationCtx = useContext(ValidationContext);
+
   const navigate = useNavigate();
 
   const [isTouched, setIsTouched] = useState(false);
@@ -51,8 +56,10 @@ const SignUpForm = () => {
     if (isTouched && !validationCtx.invalidFields.size) {
       (async function () {
         setIsRequesting(true);
-        const email = validationCtx.fields["Email address"];
+        const email = validationCtx.fields["Email"];
         const password = validationCtx.fields["Password"];
+        const firstName = validationCtx.fields["FirstName"];
+        const lastName = validationCtx.fields["LastName"];
 
         try {
           const authResponse = await fetch(URL, {
@@ -71,28 +78,15 @@ const SignUpForm = () => {
           }
           // TODO: do something with the data;
 
-          const dbResponse = await fetch(DB_URL, {
-            method: "POST",
-            body: JSON.stringify({
-              firstName: validationCtx.fields["first name"],
-              lastaName: validationCtx.fields["last name"],
-              email: validationCtx.fields["email"],
-            }),
+          await addDoc(AppDetailCollection, {
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
           });
-          const dbData = await dbResponse.json();
-          console.log(dbData);
-
-          if (!dbResponse.ok) {
-            setFormError({
-              title: "Database Error",
-              description: "Unable to save your data " + +data.error.message,
-            });
-            throw new Error("Unable to save user data");
-          }
 
           navigate("/", { replace: true });
         } catch (error) {
-          console.log("error happend");
+          console.log(error);
         }
 
         setIsRequesting(false);
@@ -108,17 +102,17 @@ const SignUpForm = () => {
 
         <div className="flex flex-col sm:flex-row gap-5">
           <SignUpInput
-            label="First name"
+            label="FirstName"
             validator={defaultValidator("first name")}
           />
           <SignUpInput
-            label="Last name"
+            label="LastName"
             validator={defaultValidator("last name")}
           />
         </div>
 
         <SignUpInput
-          label="Email address"
+          label="Email"
           className="mt-5"
           validator={defaultValidator("email address")}
         />
