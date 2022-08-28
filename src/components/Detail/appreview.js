@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./output.css";
 import StarRating from "./starRate";
-import { collection, getDocs, addDoc } from "@firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  doc,
+} from "@firebase/firestore";
 import { db } from "../FireBase/firebase-config";
 import { useParams } from "react-router-dom";
 
@@ -10,6 +16,11 @@ const Appreview = () => {
   const [comments, setComments] = useState([]);
   const [addComment, setAddComment] = useState("");
   const [users, setUsers] = useState([]);
+  const [rating, setRating] = useState(1);
+  const rate = (rating) => {
+    setRating(rating);
+  };
+
   const commentHandler = (event) => {
     setAddComment(event.target.value);
   };
@@ -36,8 +47,19 @@ const Appreview = () => {
       Name: use.firstName,
       LastName: use.lastName,
       Comment: addComment,
-      Rating: 2,
+      Rating: rating,
     });
+    let data = [];
+    data = [...JSON.parse(localStorage.getItem("detailData"))];
+    data = [data.find((data) => data.id === params.list)];
+
+    const AppDoc = doc(db, "Apps", data[0].id);
+    const updateRating = {
+      Rating: (rating + data[0].RatingSum) / (data[0].ReviewNo + 1),
+      RatingSum: data[0].RatingSum + rating,
+      ReviewNo: data[0].ReviewNo + 1,
+    };
+    updateDoc(AppDoc, updateRating);
   };
   return (
     <div>
@@ -50,7 +72,7 @@ const Appreview = () => {
             Review this app
           </button>
         )}
-        {reviewform && <StarRating />}
+        {reviewform && <StarRating rate={rate} />}
         <br></br>
         {reviewform ? (
           <div class="mt-4">
@@ -94,7 +116,7 @@ const Appreview = () => {
               ""
             )}
             {data.Rating > 0 && data.Rating <= 1 ? (
-              <p class="mb-2">★★☆☆☆</p>
+              <p class="mb-2">★☆☆☆☆</p>
             ) : (
               ""
             )}
