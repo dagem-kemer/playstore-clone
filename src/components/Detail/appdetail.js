@@ -12,9 +12,6 @@ const Appdetail = () => {
 
   data = [data.find((data) => data.id === params.list)];
 
-  // let data = [];
-  // data = [...data, detailData.find((data) => data.id === params.list)];
-
   return (
     <div>
       {data.map((data) => (
@@ -39,9 +36,9 @@ const Appdetail = () => {
             <img src="https://play-lh.googleusercontent.com/c2DcVsBUhJb3UlAGABHwafpuhstHwORpVwWZ0RvWY7NPrgdtT2o4JRhcyO49ehhUNRca=s200-rw" />
           </div>
           <div>
-            <p class="font-bold text-2xl mb-2">About this app</p>
+            <p class="font-bold text-2xl mb-3">About this app</p>
             <p class="non-italic">{data.Description}</p>
-            <pre class="font-bold mb-4">Updated on Aug 15 2022</pre>
+            <p class="font-bold mb-4">Updated on Aug 15 2022</p>
           </div>
         </React.Fragment>
       ))}

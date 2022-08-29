@@ -5,7 +5,6 @@ const NavSearch = ({ dismiss, searchValue }) => {
   const inputRef = useRef();
   const keyDownHandler = (event) => {
     if (event.key === "Enter") {
-      // console.log(inputRef.current.value);
       searchValue(inputRef.current.value);
     }
   };

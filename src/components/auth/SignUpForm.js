@@ -76,7 +76,6 @@ const SignUpForm = () => {
             });
             throw new Error("Error happend");
           }
-          // TODO: do something with the data;
 
           await addDoc(AppDetailCollection, {
             firstName: firstName,

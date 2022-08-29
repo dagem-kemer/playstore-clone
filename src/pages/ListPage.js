@@ -18,7 +18,6 @@ export default function ListPage() {
       setDetailData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
       const localData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       localStorage.setItem("detailData", JSON.stringify(localData));
-      // console.log(JSON.parse(localStorage.getItem("detailData")));
     };
     getAppDetail();
   }, []);
@@ -26,12 +25,11 @@ export default function ListPage() {
   const searchValue = (searchValue) => {
     setSearchedValue(searchValue);
   };
-  let value = [...JSON.parse(localStorage.getItem("detailData"))];
-  value = [
-    ...value.filter(
-      (data) => data.Name.toLowerCase() === searchedValue.toLowerCase()
-    ),
-  ];
+  // value = [
+  //   ...value.filter((data) =>
+  //     data.Name.toLowerCase().includes(searchedValue.toLowerCase())
+  //   ),
+  // ];
 
   return (
     <React.Fragment>
@@ -55,17 +53,23 @@ export default function ListPage() {
       )}
       {searchedValue && (
         <ListWrapper>
-          {value.length > 0 ? (
-            value.map((data) => (
-              <List
-                Name={data.Name}
-                type={data.Type}
-                rating={data.Rating}
-                ImageSrc={data.ImageSrc}
-                LinkTo={data.id}
-                key={data.id}
-              />
-            ))
+          {detailData.filter((data) =>
+            data.Name.toLowerCase().includes(searchedValue.toLowerCase())
+          ).length > 0 ? (
+            detailData
+              .filter((data) =>
+                data.Name.toLowerCase().includes(searchedValue.toLowerCase())
+              )
+              .map((data) => (
+                <List
+                  Name={data.Name}
+                  type={data.Type}
+                  rating={data.Rating}
+                  ImageSrc={data.ImageSrc}
+                  LinkTo={data.id}
+                  key={data.id}
+                />
+              ))
           ) : (
             <h2>Could not find anything</h2>
           )}
