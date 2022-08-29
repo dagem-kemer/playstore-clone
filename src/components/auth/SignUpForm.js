@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { ValidationContext } from "../../Store/ValidationContext";
+import { ValidationContext } from "../../store/ValidationContext";
 import { useNavigate } from "react-router-dom";
 import TextButton from "../ui/TextButton";
 import ActionButton from "../ui/ActionButton";

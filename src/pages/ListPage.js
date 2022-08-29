@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import List from "../components/List/List";
 import ListWrapper from "../components/List/ListWrapper";
 import { Outlet } from "react-router-dom";
@@ -33,35 +33,17 @@ export default function ListPage() {
   // ];
 
   return (
-    <React.Fragment>
-      {/* <NavBar /> */}
+    <>
       <AppBar searchValue={searchValue} />
-      {/* <Search /> */}
-      {!searchedValue && (
-        <ListWrapper>
-          {detailData &&
-            detailData.map((data) => (
-              <List
-                Name={data.Name}
-                type={data.Type}
-                rating={data.Rating}
-                ImageSrc={data.ImageSrc}
-                LinkTo={data.id}
-                key={data.id}
-              />
-            ))}
-        </ListWrapper>
-      )}
-      {searchedValue && (
-        <ListWrapper>
-          {detailData.filter((data) =>
-            data.Name.toLowerCase().includes(searchedValue.toLowerCase())
-          ).length > 0 ? (
-            detailData
-              .filter((data) =>
-                data.Name.toLowerCase().includes(searchedValue.toLowerCase())
-              )
-              .map((data) => (
+      <main className="mt-[88px] lg:mx-[60px] mb-12">
+        {/* <NavBar /> */}
+
+        <Heading>Premium Apps</Heading>
+        {/* <Search /> */}
+        {!searchedValue && (
+          <ListWrapper>
+            {detailData &&
+              detailData.map((data) => (
                 <List
                   Name={data.Name}
                   type={data.Type}
@@ -70,13 +52,74 @@ export default function ListPage() {
                   LinkTo={data.id}
                   key={data.id}
                 />
-              ))
-          ) : (
-            <h2>Could not find anything</h2>
-          )}
-        </ListWrapper>
-      )}
-      <Outlet />
-    </React.Fragment>
+              ))}
+          </ListWrapper>
+        )}
+        {searchedValue && (
+          <ListWrapper>
+            {detailData.filter((data) =>
+              data.Name.toLowerCase().includes(searchedValue.toLowerCase())
+            ).length > 0 ? (
+              detailData
+                .filter((data) =>
+                  data.Name.toLowerCase().includes(searchedValue.toLowerCase())
+                )
+                .map((data) => (
+                  <List
+                    Name={data.Name}
+                    type={data.Type}
+                    rating={data.Rating}
+                    ImageSrc={data.ImageSrc}
+                    LinkTo={data.id}
+                    key={data.id}
+                  />
+                ))
+            ) : (
+              <h2>Could not find anything</h2>
+            )}
+          </ListWrapper>
+        )}
+
+        <Heading>Top Charts</Heading>
+
+        <div className="gap-3 flex items-center px-3 mb-2">
+          <Chip label="Top free" active />
+          <Chip label="Top grossing" />
+          <Chip label="Top paid" />
+        </div>
+
+        <AppList apps={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]} />
+      </main>
+    </>
   );
+}
+
+//
+{
+  /* <Heading>Premium Apps</Heading>
+
+<ListWrapper>
+  {detailData &&
+    detailData.map((data) => (
+      <List
+        Name={data.Name}
+        type={data.Type}
+        rating={data.Rating}
+        ImageSrc={data.ImageSrc}
+        LinkTo={data.id}
+        key={data.id}
+      />
+    ))}
+</ListWrapper>
+
+<Heading>Top Charts</Heading>
+
+<div className="gap-3 flex items-center px-3 mb-2">
+  <Chip label="Top free" active />
+  <Chip label="Top grossing" />
+  <Chip label="Top paid" />
+</div>
+
+<AppList apps={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]} />
+</main> */
 }

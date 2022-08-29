@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useState } from "react";
-import "./appdetail.css";
-import "./output.css";
+// import "./appdetail.css";
+// import "./output.css";
 import { Link, useParams } from "react-router-dom";
 import React from "react";
 import { DetailContext } from "../../App";

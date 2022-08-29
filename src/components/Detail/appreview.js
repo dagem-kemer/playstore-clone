@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./output.css";
+// import "./output.css";
 import StarRating from "./starRate";
 import {
   collection,

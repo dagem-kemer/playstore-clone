@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import SignUpInput from "../components/ui/SignUpInput";
-import { Loginslice } from "../Store/store";
+import { Loginslice } from "../store/store";
 import { useDispatch } from "react-redux/es/exports";
 
 const EmailPage = () => {
