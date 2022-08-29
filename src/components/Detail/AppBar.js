@@ -7,7 +7,7 @@ import NavButton from "./NavButton";
 import NavSearch from "./NavSearch";
 import classNames from "classnames";
 
-const AppBar = () => {
+const AppBar = (props) => {
   const [isSearchShown, setIsSearchShown] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -44,7 +44,12 @@ const AppBar = () => {
         )}
       </div>
 
-      {isSearchShown && <NavSearch dismiss={() => setIsSearchShown(false)} />}
+      {isSearchShown && (
+        <NavSearch
+          searchValue={props.searchValue}
+          dismiss={() => setIsSearchShown(false)}
+        />
+      )}
 
       {/* signin and signup buttons */}
       <div className="flex items-center">

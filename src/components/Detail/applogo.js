@@ -1,23 +1,102 @@
-import { useContext } from "react";
-
+import { useEffect, useReducer, useState } from "react";
+import "./appdetail.css";
 import "./output.css";
 import { Link, useParams } from "react-router-dom";
 import React from "react";
 import { DetailContext } from "../../App";
-
+import { db } from "../FireBase/firebase-config";
+import { collection, getDocs } from "@firebase/firestore";
 const Applogo = () => {
   const params = useParams();
-  const { detailData, setDetailData } = useContext(DetailContext);
+  const reducer = (state, action) => {
+    if (action.type === "filter") {
+      return {
+        ...state,
+        filteredData: [...state.data].find((data) => data.id === params.list),
+      };
+    } else if (action.type === "getData") {
+      return {
+        ...state,
+        data: [
+          [
+            ...action.payload.docs.map((doc) => ({
+              ...doc.data(),
+              id: doc.id,
+            })),
+          ].find((data) => data.id === params.list),
+        ],
+        name: [
+          [
+            ...action.payload.docs.map((doc) => ({
+              ...doc.data(),
+              id: doc.id,
+            })),
+          ].find((data) => data.id === params.list),
+        ][0].Name,
+      };
+    }
+    return { ...state };
+  };
+  const initialState = {
+    data: [],
+    filteredData: [],
+    name: "",
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
+  useEffect(() => {
+    const AppDetailCollection = collection(db, "Apps");
+    const getAppDetail = async () => {
+      const data = await getDocs(AppDetailCollection);
+      dispatch({ type: "getData", payload: data });
+    };
+
+    getAppDetail();
+  }, []);
+  console.log(state.name);
   const idToken = localStorage.getItem("idToken");
   const isLoggedIn = !!idToken;
-
-  let data = [];
-  data = [...data, detailData.find((data) => data.id === params.list)];
-  const Name = data[0].Name;
+  // JSON.parse(localStorage.getItem("detailData"));
+  // let data = [];
+  // data = [...JSON.parse(localStorage.getItem("detailData"))];
+  // data = [data.find((data) => data.id === params.list)];
+  // const Name = data[0].Name;
+  const [navStyle, setNavStyle] = useState("topnav");
   return (
     <div>
-      {data.map((data) => (
+      {state.data.map((data) => (
         <React.Fragment>
+          <nav class="mb-4">
+            <ul class={navStyle} id="myTopnav">
+              <li class="navigation hamburger">
+                <button
+                  href="javascript:void(0);"
+                  class="icon"
+                  onClick={() =>
+                    setNavStyle((prev) =>
+                      prev === "topnav" ? `${prev + " responsive"}` : "topnav"
+                    )
+                  }
+                >
+                  <i class="fa fa-bars"></i>&#9776;
+                </button>
+              </li>
+              <a href="">
+                <li class="navigation">Kemer Store</li>
+              </a>
+              <Link to="/">
+                <li class="navigation">Apps</li>
+              </Link>
+              <a href="">
+                <li class="navigation">Games</li>
+              </a>
+              <a href="">
+                <li class="navigation">Trending</li>
+              </a>
+              <a href="" target="__blank" class="navigation-right">
+                <li class="navigation">Logout</li>
+              </a>
+            </ul>
+          </nav>
           <div class="flex">
             <h1 class="text-6xl font-bold py-2">{data.Name}</h1>
 
@@ -43,7 +122,7 @@ const Applogo = () => {
             {isLoggedIn && (
               <a
                 href="/components.zip"
-                download={Name}
+                download={state.name}
                 class="mr-8 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-8 rounded-full"
               >
                 Install
