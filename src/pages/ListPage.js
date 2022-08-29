@@ -10,7 +10,6 @@ import Heading from "../components/ui/Heading";
 import Chip from "../components/ui/Chips";
 import AppList from "../components/List/AppList";
 
-
 export default function ListPage() {
   const { detailData, setDetailData } = useContext(DetailContext);
   const AppDetailCollection = collection(db, "Apps");

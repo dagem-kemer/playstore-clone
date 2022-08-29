@@ -16,10 +16,7 @@ export default function ListWrapper(props) {
   };
 
   return (
-    <div
-      className="relative"
-      
-    >
+    <div className="relative">
       <div
         className="flex scroll-smooth overflow-x-auto snap-x snap-mandatory no-scrollbar w-full"
         onMouseEnter={() => setShowNextButtons(true)}

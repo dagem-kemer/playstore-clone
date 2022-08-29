@@ -1,4 +1,5 @@
 import AppItem from "./AppItem";
+
 const ListItem = ({ image, index, name, rating }) => {
   return (
     <div className="flex hover:bg-black hover:bg-opacity-5 rounded-lg ml-4">

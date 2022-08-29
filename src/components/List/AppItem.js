@@ -8,10 +8,10 @@ const AppItem = ({name, rating, image}) => {
       </div>
 
       <div className="ml-4 text-darkGrey flex flex-col justify-evenly">
-        <p className="text-base">{name}</p>
+        <p className="text-base text-[#202124]">{name}</p>
         <p className="text-xs">Strategy</p>
         <div className="flex items-baseline">
-          <span className="text-sm mr-1">{rating}</span>
+          <span className="text-sm mr-1">{Number(rating).toFixed(1)}</span>
           <StarIcon />
         </div>
       </div>
