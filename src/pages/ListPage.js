@@ -26,18 +26,12 @@ export default function ListPage() {
   const searchValue = (searchValue) => {
     setSearchedValue(searchValue);
   };
-  let value = [...JSON.parse(localStorage.getItem("detailData"))];
   // value = [
-  //   ...value.filter(
-  //     (data) => data.Name.toLowerCase() === searchedValue.toLowerCase()
+  //   ...value.filter((data) =>
+  //     data.Name.toLowerCase().includes(searchedValue.toLowerCase())
   //   ),
   // ];
 
-  value = [
-    ...value.filter((data) =>
-      data.Name.toLowerCase().includes(searchedValue.toLowerCase())
-    ),
-  ];
   return (
     <React.Fragment>
       {/* <NavBar /> */}
@@ -60,17 +54,23 @@ export default function ListPage() {
       )}
       {searchedValue && (
         <ListWrapper>
-          {value.length > 0 ? (
-            value.map((data) => (
-              <List
-                Name={data.Name}
-                type={data.Type}
-                rating={data.Rating}
-                ImageSrc={data.ImageSrc}
-                LinkTo={data.id}
-                key={data.id}
-              />
-            ))
+          {detailData.filter((data) =>
+            data.Name.toLowerCase().includes(searchedValue.toLowerCase())
+          ).length > 0 ? (
+            detailData
+              .filter((data) =>
+                data.Name.toLowerCase().includes(searchedValue.toLowerCase())
+              )
+              .map((data) => (
+                <List
+                  Name={data.Name}
+                  type={data.Type}
+                  rating={data.Rating}
+                  ImageSrc={data.ImageSrc}
+                  LinkTo={data.id}
+                  key={data.id}
+                />
+              ))
           ) : (
             <h2>Could not find anything</h2>
           )}
