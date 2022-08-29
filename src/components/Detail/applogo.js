@@ -25,6 +25,14 @@ const Applogo = () => {
             })),
           ].find((data) => data.id === params.list),
         ],
+        name: [
+          [
+            ...action.payload.docs.map((doc) => ({
+              ...doc.data(),
+              id: doc.id,
+            })),
+          ].find((data) => data.id === params.list),
+        ][0].Name,
       };
     }
     return { ...state };
@@ -32,6 +40,7 @@ const Applogo = () => {
   const initialState = {
     data: [],
     filteredData: [],
+    name: "",
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   useEffect(() => {
@@ -43,16 +52,14 @@ const Applogo = () => {
 
     getAppDetail();
   }, []);
-  console.log(state.data);
-  // const params = useParams();
-  // const { detailData, setDetailData } = useContext(DetailContext);
+  console.log(state.name);
   const idToken = localStorage.getItem("idToken");
   const isLoggedIn = !!idToken;
-  JSON.parse(localStorage.getItem("detailData"));
-  let data = [];
-  data = [...JSON.parse(localStorage.getItem("detailData"))];
-  data = [data.find((data) => data.id === params.list)];
-  const Name = data[0].Name;
+  // JSON.parse(localStorage.getItem("detailData"));
+  // let data = [];
+  // data = [...JSON.parse(localStorage.getItem("detailData"))];
+  // data = [data.find((data) => data.id === params.list)];
+  // const Name = data[0].Name;
   const [navStyle, setNavStyle] = useState("topnav");
   return (
     <div>
@@ -115,7 +122,7 @@ const Applogo = () => {
             {isLoggedIn && (
               <a
                 href="/components.zip"
-                download={Name}
+                download={state.name}
                 class="mr-8 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-8 rounded-full"
               >
                 Install
