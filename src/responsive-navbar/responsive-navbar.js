@@ -1,7 +1,7 @@
 function myFunction() {
   var x = document.getElementById("myTopnav");
   if (x.class === "topnav") {
-    x.class = " responsive";
+    x.class = "topnav responsive";
   } else {
     x.class = "topnav";
   }

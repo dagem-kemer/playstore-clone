@@ -1,6 +1,5 @@
-import { useContext, useMemo } from "react";
+import { useContext, useMemo, useState } from "react";
 import "./appdetail.css";
-import myFunction from "..//..//responsive-navbar/responsive-navbar";
 import "./output.css";
 import { Link, useParams } from "react-router-dom";
 import React from "react";
@@ -16,16 +15,25 @@ const Applogo = () => {
   data = [...JSON.parse(localStorage.getItem("detailData"))];
   data = [data.find((data) => data.id === params.list)];
   const Name = data[0].Name;
+  const [navStyle, setNavStyle] = useState("topnav");
   return (
     <div>
       {data.map((data) => (
         <React.Fragment>
           <nav class="mb-4">
-            <ul class="topnav" id="myTopnav">
+            <ul class={navStyle} id="myTopnav">
               <li class="navigation hamburger">
-                <a href="javascript:void(0);" class="icon" onclick={myFunction}>
+                <button
+                  href="javascript:void(0);"
+                  class="icon"
+                  onClick={() =>
+                    setNavStyle((prev) =>
+                      prev === "topnav" ? `${prev + " responsive"}` : "topnav"
+                    )
+                  }
+                >
                   <i class="fa fa-bars"></i>&#9776;
-                </a>
+                </button>
               </li>
               <a href="">
                 <li class="navigation">Kemer Store</li>
