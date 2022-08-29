@@ -30,9 +30,9 @@ const Applogo = () => {
               <a href="">
                 <li class="navigation">Kemer Store</li>
               </a>
-              <a href="">
+              <Link to="/">
                 <li class="navigation">Apps</li>
-              </a>
+              </Link>
               <a href="">
                 <li class="navigation">Games</li>
               </a>
