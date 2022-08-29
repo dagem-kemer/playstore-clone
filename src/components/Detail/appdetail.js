@@ -44,9 +44,7 @@ const Appdetail = () => {
 
     getAppDetail();
   }, []);
-  console.log(state.data);
-
-  // setData((prev) => [prev.find((data) => data.id === params.list)]);
+  // console.log(state.data);
   return (
     <div>
       {state.data.map((data) => (

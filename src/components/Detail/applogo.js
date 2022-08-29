@@ -1,13 +1,51 @@
-import { useContext, useMemo, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import "./appdetail.css";
 import "./output.css";
 import { Link, useParams } from "react-router-dom";
 import React from "react";
 import { DetailContext } from "../../App";
-
+import { db } from "../FireBase/firebase-config";
+import { collection, getDocs } from "@firebase/firestore";
 const Applogo = () => {
   const params = useParams();
-  const { detailData, setDetailData } = useContext(DetailContext);
+  const reducer = (state, action) => {
+    if (action.type === "filter") {
+      return {
+        ...state,
+        filteredData: [...state.data].find((data) => data.id === params.list),
+      };
+    } else if (action.type === "getData") {
+      return {
+        ...state,
+        data: [
+          [
+            ...action.payload.docs.map((doc) => ({
+              ...doc.data(),
+              id: doc.id,
+            })),
+          ].find((data) => data.id === params.list),
+        ],
+      };
+    }
+    return { ...state };
+  };
+  const initialState = {
+    data: [],
+    filteredData: [],
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
+  useEffect(() => {
+    const AppDetailCollection = collection(db, "Apps");
+    const getAppDetail = async () => {
+      const data = await getDocs(AppDetailCollection);
+      dispatch({ type: "getData", payload: data });
+    };
+
+    getAppDetail();
+  }, []);
+  console.log(state.data);
+  // const params = useParams();
+  // const { detailData, setDetailData } = useContext(DetailContext);
   const idToken = localStorage.getItem("idToken");
   const isLoggedIn = !!idToken;
   JSON.parse(localStorage.getItem("detailData"));
@@ -18,7 +56,7 @@ const Applogo = () => {
   const [navStyle, setNavStyle] = useState("topnav");
   return (
     <div>
-      {data.map((data) => (
+      {state.data.map((data) => (
         <React.Fragment>
           <nav class="mb-4">
             <ul class={navStyle} id="myTopnav">
