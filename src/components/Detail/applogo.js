@@ -1,5 +1,6 @@
 import { useContext, useMemo } from "react";
-
+import "./appdetail.css";
+import myFunction from "..//..//responsive-navbar/responsive-navbar";
 import "./output.css";
 import { Link, useParams } from "react-router-dom";
 import React from "react";
@@ -19,6 +20,30 @@ const Applogo = () => {
     <div>
       {data.map((data) => (
         <React.Fragment>
+          <nav class="mb-4">
+            <ul class="topnav" id="myTopnav">
+              <li class="navigation hamburger">
+                <a href="javascript:void(0);" class="icon" onclick={myFunction}>
+                  <i class="fa fa-bars"></i>&#9776;
+                </a>
+              </li>
+              <a href="">
+                <li class="navigation">Kemer Store</li>
+              </a>
+              <a href="">
+                <li class="navigation">Apps</li>
+              </a>
+              <a href="">
+                <li class="navigation">Games</li>
+              </a>
+              <a href="">
+                <li class="navigation">Trending</li>
+              </a>
+              <a href="" target="__blank" class="navigation-right">
+                <li class="navigation">Logout</li>
+              </a>
+            </ul>
+          </nav>
           <div class="flex">
             <h1 class="text-6xl font-bold py-2">{data.Name}</h1>
 

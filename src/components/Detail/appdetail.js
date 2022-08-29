@@ -1,5 +1,6 @@
 import react, { useEffect, useState, useContext } from "react";
 import "./output.css";
+import "./appdetail.css";
 import { DetailContext } from "../../App";
 import { useParams } from "react-router-dom";
 
@@ -16,7 +17,7 @@ const Appdetail = () => {
     <div>
       {data.map((data) => (
         <React.Fragment>
-          <div class="py-8 flex">
+          <section class="flex app-list app-previews-flexbox">
             <img
               class="mr-5 w-25"
               src="https://play-lh.googleusercontent.com/c2DcVsBUhJb3UlAGABHwafpuhstHwORpVwWZ0RvWY7NPrgdtT2o4JRhcyO49ehhUNRca=s200-rw"
@@ -34,7 +35,7 @@ const Appdetail = () => {
               src="https://play-lh.googleusercontent.com/c2DcVsBUhJb3UlAGABHwafpuhstHwORpVwWZ0RvWY7NPrgdtT2o4JRhcyO49ehhUNRca=s200-rw"
             />
             <img src="https://play-lh.googleusercontent.com/c2DcVsBUhJb3UlAGABHwafpuhstHwORpVwWZ0RvWY7NPrgdtT2o4JRhcyO49ehhUNRca=s200-rw" />
-          </div>
+          </section>
           <div>
             <p class="font-bold text-2xl mb-3">About this app</p>
             <p class="non-italic">{data.Description}</p>
