@@ -27,12 +27,17 @@ export default function ListPage() {
     setSearchedValue(searchValue);
   };
   let value = [...JSON.parse(localStorage.getItem("detailData"))];
+  // value = [
+  //   ...value.filter(
+  //     (data) => data.Name.toLowerCase() === searchedValue.toLowerCase()
+  //   ),
+  // ];
+
   value = [
-    ...value.filter(
-      (data) => data.Name.toLowerCase() === searchedValue.toLowerCase()
+    ...value.filter((data) =>
+      data.Name.toLowerCase().includes(searchedValue.toLowerCase())
     ),
   ];
-
   return (
     <React.Fragment>
       {/* <NavBar /> */}
