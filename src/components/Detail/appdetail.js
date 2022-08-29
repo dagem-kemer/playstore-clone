@@ -1,21 +1,55 @@
-import react, { useEffect, useState, useContext } from "react";
+import react, { useEffect, useState, useContext, useReducer } from "react";
 import "./output.css";
 import "./appdetail.css";
 import { DetailContext } from "../../App";
 import { useParams } from "react-router-dom";
-
+import { db } from "../FireBase/firebase-config";
+import { collection, getDocs } from "@firebase/firestore";
 import React from "react";
+
 const Appdetail = () => {
-  const { detailData, setDetailData } = useContext(DetailContext);
   const params = useParams();
-  let data = [];
-  data = [...JSON.parse(localStorage.getItem("detailData"))];
+  const reducer = (state, action) => {
+    if (action.type === "filter") {
+      return {
+        ...state,
+        filteredData: [...state.data].find((data) => data.id === params.list),
+      };
+    } else if (action.type === "getData") {
+      return {
+        ...state,
+        data: [
+          [
+            ...action.payload.docs.map((doc) => ({
+              ...doc.data(),
+              id: doc.id,
+            })),
+          ].find((data) => data.id === params.list),
+        ],
+      };
+    }
+    return { ...state };
+  };
+  const initialState = {
+    data: [],
+    filteredData: [],
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
+  useEffect(() => {
+    const AppDetailCollection = collection(db, "Apps");
+    const getAppDetail = async () => {
+      const data = await getDocs(AppDetailCollection);
+      dispatch({ type: "getData", payload: data });
+    };
 
-  data = [data.find((data) => data.id === params.list)];
+    getAppDetail();
+  }, []);
+  console.log(state.data);
 
+  // setData((prev) => [prev.find((data) => data.id === params.list)]);
   return (
     <div>
-      {data.map((data) => (
+      {state.data.map((data) => (
         <React.Fragment>
           <section class="flex app-list app-previews-flexbox">
             <img
