@@ -10,7 +10,8 @@ module.exports = {
         mediumGrey: ' #202124',
         darkBlue: '#1b66ca',
         alertRed: '#d93025',
-        darkGreen: '#01875f'
+        darkGreen: '#01875f',
+        darkerGreen: "#056449"
       },
       fontFamily: {
         googleFont: 'Roboto,RobotoDraft,Helvetica,Arial,sans-serif'

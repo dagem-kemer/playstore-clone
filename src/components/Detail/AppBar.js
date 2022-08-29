@@ -18,7 +18,7 @@ const AppBar = () => {
   }, []);
 
   const navStyle = classNames({
-    "flex justify-between px-7 h-[64px] fixed top-0 bg-white w-full animated": true,
+    "flex justify-between px-7 h-[64px] fixed top-0 bg-white w-full animated z-50": true,
     "shadow-xl": isScrolled,
   });
 
