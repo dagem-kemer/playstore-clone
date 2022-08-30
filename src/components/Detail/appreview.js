@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 // import "./output.css";
 import StarRating from "./starRate";
 import {
@@ -12,6 +12,34 @@ import { db } from "../FireBase/firebase-config";
 import { Link, useParams } from "react-router-dom";
 
 const Appreview = () => {
+  const params = useParams();
+  const reducer = (state, action) => {
+    if (action.type === "filterData") {
+      return {
+        ...state,
+        filteredComment: [
+          ...action.payload.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          })),
+        ].find(
+          (data) =>
+            data.Email === localStorage.getItem("email") &&
+            data.Id === params.list
+        ),
+      };
+    } else if (action.type === "input") {
+      return {
+        ...state,
+        filteredComment: { ...state, Comment: action.payload },
+      };
+    }
+    return { ...state };
+  };
+  const initialState = {
+    filteredComment: [],
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [reviewform, showreviewform] = useState(false);
   const [comments, setComments] = useState([]);
   const [appData, setAppData] = useState([]);
@@ -24,8 +52,9 @@ const Appreview = () => {
 
   const commentHandler = (event) => {
     setAddComment(event.target.value);
+    dispatch({ type: "input", payload: event.target.value });
   };
-  const params = useParams();
+
   const AppDetailCollection = collection(db, "Apps");
   const commentCollection = collection(db, "Comments");
 
@@ -38,6 +67,7 @@ const Appreview = () => {
       setUsers(userdata.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
       const AppData = await getDocs(AppDetailCollection);
       setAppData(AppData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      dispatch({ type: "filterData", payload: data });
     };
     getAppDetail();
   }, [reviewform]);
@@ -117,28 +147,40 @@ const Appreview = () => {
         <br></br>
         {reviewform ? (
           <div class="mt-4">
-            <input
-              type="text"
-              id="large-input"
-              class="ml-8 mt-4 block p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              onChange={commentHandler}
-            />
-
             {!filteredComment && (
-              <button
-                onClick={AddReview}
-                class=" ml-4 bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded"
-              >
-                Save Review
-              </button>
+              <>
+                {" "}
+                <input
+                  type="text"
+                  id="large-input"
+                  class="ml-8 mt-4 block p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  onChange={commentHandler}
+                />
+                <button
+                  onClick={AddReview}
+                  class=" ml-4 bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded"
+                >
+                  Save Review
+                </button>
+              </>
             )}
             {filteredComment && (
-              <button
-                onClick={updateComment}
-                class=" ml-4 bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded"
-              >
-                Update Review
-              </button>
+              <>
+                {" "}
+                <input
+                  type="text"
+                  id="large-input"
+                  class="ml-8 mt-4 block p-4 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  onChange={commentHandler}
+                  value={state.filteredComment.Comment}
+                />
+                <button
+                  onClick={updateComment}
+                  class=" ml-4 bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded"
+                >
+                  Update Review
+                </button>
+              </>
             )}
           </div>
         ) : null}
