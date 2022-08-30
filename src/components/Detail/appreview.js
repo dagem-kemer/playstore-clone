@@ -9,7 +9,7 @@ import {
   doc,
 } from "@firebase/firestore";
 import { db } from "../FireBase/firebase-config";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Appreview = () => {
   const [reviewform, showreviewform] = useState(false);
@@ -41,7 +41,9 @@ const Appreview = () => {
   const AddReview = async () => {
     showreviewform((prev) => !prev);
     let use = users;
-    use = users.find((data) => data.email === "s122@gmail.com");
+    // use = users.find((data) => data.email === "s122@gmail.com");
+    use = users.find((data) => data.email === localStorage.getItem("email"));
+
     addDoc(AppDetailCollection, {
       Id: params.list,
       Name: use.firstName,
@@ -64,14 +66,31 @@ const Appreview = () => {
   return (
     <div>
       <div>
-        {!reviewform && (
+        {!localStorage.getItem("email") ? (
+          <Link
+            class="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded mt-6"
+            to="/sign-in"
+          >
+            Review this app
+          </Link>
+        ) : (
+          !reviewform && (
+            <button
+              onClick={() => showreviewform(!reviewform)}
+              class="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded mt-6"
+            >
+              Review this app
+            </button>
+          )
+        )}
+        {/* {!reviewform && (
           <button
             onClick={() => showreviewform(!reviewform)}
             class="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded mt-6"
           >
             Review this app
           </button>
-        )}
+        )} */}
         {reviewform && <StarRating rate={rate} />}
         <br></br>
         {reviewform ? (
