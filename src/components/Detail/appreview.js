@@ -14,6 +14,7 @@ import { Link, useParams } from "react-router-dom";
 const Appreview = () => {
   const [reviewform, showreviewform] = useState(false);
   const [comments, setComments] = useState([]);
+  const [appData, setAppData] = useState([]);
   const [addComment, setAddComment] = useState("");
   const [users, setUsers] = useState([]);
   const [rating, setRating] = useState(1);
@@ -25,14 +26,18 @@ const Appreview = () => {
     setAddComment(event.target.value);
   };
   const params = useParams();
-  const AppDetailCollection = collection(db, "Comments");
+  const AppDetailCollection = collection(db, "Apps");
+  const commentCollection = collection(db, "Comments");
+
   const UserCollection = collection(db, "Users");
   useEffect(() => {
     const getAppDetail = async () => {
-      const data = await getDocs(AppDetailCollection);
+      const data = await getDocs(commentCollection);
       setComments(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
       const userdata = await getDocs(UserCollection);
       setUsers(userdata.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      const AppData = await getDocs(AppDetailCollection);
+      setAppData(AppData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
     getAppDetail();
   }, [reviewform]);
@@ -44,17 +49,18 @@ const Appreview = () => {
     // use = users.find((data) => data.email === "s122@gmail.com");
     use = users.find((data) => data.email === localStorage.getItem("email"));
 
-    addDoc(AppDetailCollection, {
+    addDoc(commentCollection, {
       Id: params.list,
+      Email: use.email,
       Name: use.firstName,
       LastName: use.lastName,
       Comment: addComment,
       Rating: rating,
     });
-    let data = [];
-    data = [...JSON.parse(localStorage.getItem("detailData"))];
-    data = [data.find((data) => data.id === params.list)];
-
+    // let data = [];
+    // data = [...JSON.parse(localStorage.getItem("detailData"))];
+    // data = [data.find((data) => data.id === params.list)];
+    const data = [appData.find((data) => data.id === params.list)];
     const AppDoc = doc(db, "Apps", data[0].id);
     const updateRating = {
       Rating: (rating + data[0].RatingSum) / (data[0].ReviewNo + 1),
@@ -62,7 +68,35 @@ const Appreview = () => {
       ReviewNo: data[0].ReviewNo + 1,
     };
     updateDoc(AppDoc, updateRating);
+    // console.log(data);
   };
+  const updateComment = () => {
+    showreviewform((prev) => !prev);
+    let data = [];
+    data = comments.find(
+      (data) =>
+        data.Email === localStorage.getItem("email") && data.Id === params.list
+    );
+
+    const updateComments = {
+      Comment: addComment,
+      Rating: rating,
+    };
+    const commentDoc = doc(db, "Comments", data.id);
+    updateDoc(commentDoc, updateComments);
+    let AppData = appData.find((data) => data.id === params.list);
+    const updateRating = {
+      Rating: (rating + AppData.RatingSum - data.Rating) / AppData.ReviewNo,
+      RatingSum: AppData.RatingSum + rating - data.Rating,
+    };
+
+    const AppDoc = doc(db, "Apps", AppData.id);
+    updateDoc(AppDoc, updateRating);
+  };
+  const filteredComment = comments.find(
+    (data) =>
+      data.Email === localStorage.getItem("email") && data.Id === params.list
+  );
   return (
     <div>
       <div>
@@ -83,14 +117,6 @@ const Appreview = () => {
             </button>
           )
         )}
-        {/* {!reviewform && (
-          <button
-            onClick={() => showreviewform(!reviewform)}
-            class="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded mt-6"
-          >
-            Review this app
-          </button>
-        )} */}
         {reviewform && <StarRating rate={rate} />}
         <br></br>
         {reviewform ? (
@@ -102,12 +128,22 @@ const Appreview = () => {
               onChange={commentHandler}
             />
 
-            <button
-              onClick={AddReview}
-              class=" ml-4 bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded"
-            >
-              Save Review
-            </button>
+            {!filteredComment && (
+              <button
+                onClick={AddReview}
+                class=" ml-4 bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded"
+              >
+                Save Review
+              </button>
+            )}
+            {filteredComment && (
+              <button
+                onClick={updateComment}
+                class=" ml-4 bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded"
+              >
+                Update Review
+              </button>
+            )}
           </div>
         ) : null}
       </div>
