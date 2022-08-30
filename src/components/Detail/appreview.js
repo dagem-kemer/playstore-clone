@@ -46,7 +46,6 @@ const Appreview = () => {
   const AddReview = async () => {
     showreviewform((prev) => !prev);
     let use = users;
-    // use = users.find((data) => data.email === "s122@gmail.com");
     use = users.find((data) => data.email === localStorage.getItem("email"));
 
     addDoc(commentCollection, {
@@ -57,9 +56,7 @@ const Appreview = () => {
       Comment: addComment,
       Rating: rating,
     });
-    // let data = [];
-    // data = [...JSON.parse(localStorage.getItem("detailData"))];
-    // data = [data.find((data) => data.id === params.list)];
+
     const data = [appData.find((data) => data.id === params.list)];
     const AppDoc = doc(db, "Apps", data[0].id);
     const updateRating = {
@@ -68,7 +65,6 @@ const Appreview = () => {
       ReviewNo: data[0].ReviewNo + 1,
     };
     updateDoc(AppDoc, updateRating);
-    // console.log(data);
   };
   const updateComment = () => {
     showreviewform((prev) => !prev);
@@ -90,7 +86,7 @@ const Appreview = () => {
       RatingSum: AppData.RatingSum + rating - data.Rating,
     };
 
-    const AppDoc = doc(db, "Apps", AppData.id);
+    const AppDoc = doc(db, "Apps", params.list);
     updateDoc(AppDoc, updateRating);
   };
   const filteredComment = comments.find(

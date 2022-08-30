@@ -5,8 +5,15 @@ import { Link, useParams } from "react-router-dom";
 import React from "react";
 import { DetailContext } from "../../App";
 import { db } from "../FireBase/firebase-config";
-import { collection, getDocs } from "@firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  doc,
+} from "@firebase/firestore";
 const Applogo = () => {
+  const [rerender, setRerender] = useState(false);
   const params = useParams();
   const reducer = (state, action) => {
     if (action.type === "filter") {
@@ -34,6 +41,20 @@ const Applogo = () => {
           ].find((data) => data.id === params.list),
         ][0].Name,
       };
+    } else if (action.type === "saveDownloadList") {
+      return {
+        ...state,
+        downloads: [
+          ...action.payload.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          })),
+        ].find(
+          (data) =>
+            data.AppId === params.list &&
+            localStorage.getItem("email") === data.Email
+        ),
+      };
     }
     return { ...state };
   };
@@ -41,26 +62,40 @@ const Applogo = () => {
     data: [],
     filteredData: [],
     name: "",
+    downloads: "",
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   useEffect(() => {
     const AppDetailCollection = collection(db, "Apps");
+    const DownloadCollection = collection(db, "Downloads");
     const getAppDetail = async () => {
       const data = await getDocs(AppDetailCollection);
       dispatch({ type: "getData", payload: data });
+
+      const downloadData = await getDocs(DownloadCollection);
+      dispatch({ type: "saveDownloadList", payload: downloadData });
     };
 
     getAppDetail();
-  }, []);
-  console.log(state.name);
+  }, [rerender]);
   const idToken = localStorage.getItem("idToken");
   const isLoggedIn = !!idToken;
-  // JSON.parse(localStorage.getItem("detailData"));
-  // let data = [];
-  // data = [...JSON.parse(localStorage.getItem("detailData"))];
-  // data = [data.find((data) => data.id === params.list)];
-  // const Name = data[0].Name;
   const [navStyle, setNavStyle] = useState("topnav");
+  const download = () => {
+    setRerender((prev) => !prev);
+    const downloadCollection = collection(db, "Downloads");
+    const downloadData = {
+      Email: localStorage.getItem("email"),
+      AppName: state.data[0].Name,
+      AppId: params.list,
+    };
+    addDoc(downloadCollection, downloadData);
+    const AppDetailCollection = doc(db, "Apps", params.list);
+    const down = {
+      DownloadNo: (state.data[0].DownloadNo + 1) / 1,
+    };
+    updateDoc(AppDetailCollection, down);
+  };
   return (
     <div>
       {state.data.map((data) => (
@@ -116,17 +151,24 @@ const Applogo = () => {
                 {data.DownloadNo} downloads
               </li>
               <li>Rated for 18+</li>
+              {state.downloads && (
+                <li style={{ color: "red", marginLeft: "10px" }}>
+                  You have downloaded this App
+                </li>
+              )}
             </ul>
           </div>
           <div>
             {isLoggedIn && (
-              <a
-                href="/components.zip"
-                download={state.name}
-                class="mr-8 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-8 rounded-full"
-              >
-                Install
-              </a>
+              <button onClick={state.downloads ? null : download}>
+                <a
+                  href="/components.zip"
+                  download={state.name}
+                  class="mr-8 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-8 rounded-full"
+                >
+                  Install
+                </a>
+              </button>
             )}
             {!isLoggedIn && (
               <Link
