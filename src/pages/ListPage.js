@@ -1,24 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import List from "../components/List/List";
 import ListWrapper from "../components/List/ListWrapper";
 import { Outlet } from "react-router-dom";
 import AppBar from "../components/Detail/AppBar";
 import { collection, getDocs } from "@firebase/firestore";
 import { db } from "../components/FireBase/firebase-config";
-import { DetailContext } from "../App";
 import Heading from "../components/ui/Heading";
 import Chip from "../components/ui/Chips";
 import AppList from "../components/List/AppList";
 
 export default function ListPage() {
-  const { detailData, setDetailData } = useContext(DetailContext);
-  const AppDetailCollection = collection(db, "Apps");
+  const [detailData, setDetailData] = useState([]);
   useEffect(() => {
+    const AppDetailCollection = collection(db, "Apps");
+
     const getAppDetail = async () => {
       const data = await getDocs(AppDetailCollection);
       setDetailData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      const localData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-      localStorage.setItem("detailData", JSON.stringify(localData));
     };
     getAppDetail();
   }, []);
@@ -26,11 +24,6 @@ export default function ListPage() {
   const searchValue = (searchValue) => {
     setSearchedValue(searchValue);
   };
-  // value = [
-  //   ...value.filter((data) =>
-  //     data.Name.toLowerCase().includes(searchedValue.toLowerCase())
-  //   ),
-  // ];
 
   return (
     <>
@@ -88,7 +81,8 @@ export default function ListPage() {
           <Chip label="Top paid" />
         </div>
 
-        <AppList apps={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]} />
+        {/* <AppList apps={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]} /> */}
+        <AppList apps={detailData} />
       </main>
     </>
   );

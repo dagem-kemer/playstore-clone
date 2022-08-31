@@ -12,18 +12,18 @@ const AppList = ({ apps }) => {
       col = [];
     }
   }
-
+  console.log(listCols);
   return (
     <ListWrapper>
-      {listCols.map((col) => (
-        <div key={col} className="basis-[33.333%] shrink-0 snap-start">
-          {col.map((row) => (
+      {listCols.map((col, index) => (
+        <div className="basis-[33.333%] shrink-0 snap-start">
+          {col.map((row, index) => (
             <ListItem
-              index={row}
-              key={row}
-              image="https://yt3.ggpht.com/ytc/AMLnZu-CbOUpKWnChEpvLaIwfJu9PvYGb1RE2h46c-7qng=s900-c-k-c0x00ffffff-no-rj"
-              rating="3.9"
-              name="Super fun game"
+              index={index}
+              key={row.Id}
+              image={row.ImageSrc}
+              rating={row.Rating}
+              name={row.Name}
             />
           ))}
         </div>

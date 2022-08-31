@@ -47,31 +47,31 @@ const Appdetail = () => {
   // console.log(state.data);
   return (
     <div>
-      {state.data.map((data) => (
-        <React.Fragment>
-          <section class="flex app-list app-previews-flexbox">
+      {state.data.map((data, index) => (
+        <React.Fragment key={index}>
+          <section className="flex app-list app-previews-flexbox">
             <img
-              class="mr-5 w-25"
+              className="mr-5 w-25"
               src="https://play-lh.googleusercontent.com/c2DcVsBUhJb3UlAGABHwafpuhstHwORpVwWZ0RvWY7NPrgdtT2o4JRhcyO49ehhUNRca=s200-rw"
             />
             <img
-              class="mr-5"
+              className="mr-5"
               src="https://play-lh.googleusercontent.com/c2DcVsBUhJb3UlAGABHwafpuhstHwORpVwWZ0RvWY7NPrgdtT2o4JRhcyO49ehhUNRca=s200-rw"
             />
             <img
-              class="mr-5"
+              className="mr-5"
               src="https://play-lh.googleusercontent.com/c2DcVsBUhJb3UlAGABHwafpuhstHwORpVwWZ0RvWY7NPrgdtT2o4JRhcyO49ehhUNRca=s200-rw"
             />
             <img
-              class="mr-5"
+              className="mr-5"
               src="https://play-lh.googleusercontent.com/c2DcVsBUhJb3UlAGABHwafpuhstHwORpVwWZ0RvWY7NPrgdtT2o4JRhcyO49ehhUNRca=s200-rw"
             />
             <img src="https://play-lh.googleusercontent.com/c2DcVsBUhJb3UlAGABHwafpuhstHwORpVwWZ0RvWY7NPrgdtT2o4JRhcyO49ehhUNRca=s200-rw" />
           </section>
           <div>
-            <p class="font-bold text-2xl mb-3">About this app</p>
-            <p class="non-italic">{data.Description}</p>
-            <p class="font-bold mb-4">Updated on Aug 15 2022</p>
+            <p className="font-bold text-2xl mb-3">About this app</p>
+            <p className="non-italic">{data.Description}</p>
+            <p className="font-bold mb-4">Updated on Aug 15 2022</p>
           </div>
         </React.Fragment>
       ))}
