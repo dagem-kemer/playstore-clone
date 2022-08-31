@@ -158,7 +158,7 @@ const Appreview = () => {
                 />
                 <button
                   onClick={AddReview}
-                  className=" ml-4 bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded"
+                  className=" ml-4 mt-4 bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded"
                 >
                   Save Review
                 </button>
