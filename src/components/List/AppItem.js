@@ -1,6 +1,6 @@
 import StarIcon from "../icons/StarIcon";
 
-const AppItem = ({name, rating, image}) => {
+const AppItem = ({ name, rating, image }) => {
   return (
     <div className="flex my-4">
       <div className="w-[64px] h-[64px] rounded-2xl  overflow-hidden shadow-md">
