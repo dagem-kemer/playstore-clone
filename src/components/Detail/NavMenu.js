@@ -6,7 +6,7 @@ const NavMenu = ({ label, isActive }) => {
     "text-darkGreen": isActive,
     "text-darkGrey": !isActive,
   });
-  
+
   return (
     <li className="px-4 ">
       <a className="flex items-center relative w-full h-full">

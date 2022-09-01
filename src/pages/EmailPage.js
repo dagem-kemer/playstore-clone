@@ -31,6 +31,7 @@ const EmailPage = () => {
         resp.json().then((data) => {
           dispatch(Loginslice.login(data.idToken));
           localStorage.setItem("idToken", data.idToken);
+          localStorage.setItem("email", data.email);
           // navigate("/List-page");
           navigate("/");
         });
