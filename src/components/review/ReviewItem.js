@@ -1,7 +1,7 @@
-import StarIcon from "../icons/StarIcon";
+import RatingStars from "./RatingStar";
 import EllipsisIcon from "../icons/EllipsisVertical";
 
-const Review = ({ user, date, reveiwText }) => {
+const ReviewItem = ({ user, date, reveiwText, rating }) => {
   return (
     <div className="py-6">
       <div className="flex justify-between">
@@ -19,11 +19,7 @@ const Review = ({ user, date, reveiwText }) => {
       </div>
 
       <div className="flex items-center mt-4">
-        <StarIcon />
-        <StarIcon />
-        <StarIcon />
-        <StarIcon />
-        <StarIcon />
+        <RatingStars value={rating}/>
         <div className="ml-4 text-xs text-darkGrey">{date}</div>
       </div>
 
@@ -32,4 +28,4 @@ const Review = ({ user, date, reveiwText }) => {
   );
 };
 
-export default Review;
+export default ReviewItem;

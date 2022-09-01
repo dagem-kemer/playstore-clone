@@ -6,7 +6,7 @@ export default function List(props) {
   const idtoken = localStorage.getItem("idToken");
   const isLoggedIn = !!idtoken;
   return (
-    <Link to={props.LinkTo} className="grow">
+    <Link to={props.LinkTo} className="grow shrink-0 basis-[calc(33.3333%)]">
       <div className="bg-white rounded-lg hover:bg-opacity-10 hover:bg-black mr-4 overflow-hidden p-3">
         <img
           src={props.ImageSrc}

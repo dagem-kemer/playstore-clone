@@ -1,5 +1,6 @@
 import StarIcon from "../icons/StarIcon";
 import RatingBar from "./RatingBar";
+import RatingStars from "./RatingStar";
 
 const Rating = () => {
   return (
@@ -8,21 +9,7 @@ const Rating = () => {
         <div>
           <div className="text-[3.5rem] leading-[4rem]">4.3</div>
           <div className="flex">
-            <span>
-              <StarIcon className="w-4 h-4" />
-            </span>
-            <span>
-              <StarIcon className="w-4 h-4" />
-            </span>
-            <span>
-              <StarIcon className="w-4 h-4" />
-            </span>
-            <span>
-              <StarIcon className="w-4 h-4" />
-            </span>
-            <span>
-              <StarIcon className="w-4 h-4" />
-            </span>
+            <RatingStars value={4.3} large/>
           </div>
           <div className="text-xs text-mediumGrey mt-2">3.25M reviews</div>
         </div>

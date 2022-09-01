@@ -185,7 +185,7 @@ const Appreview = () => {
           </div>
         ) : null}
       </div>
-      <div className="py-8">
+      {/* <div className="py-8">
         <h3 className="font-bold text-2xl">Rates and reviews</h3>
       </div>
       <div>
@@ -222,7 +222,7 @@ const Appreview = () => {
         <button className="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded">
           See all reviews
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };
