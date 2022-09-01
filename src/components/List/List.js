@@ -18,6 +18,7 @@ export default function List(props) {
           name={props.Name}
           rating={props.rating}
           image={props.ImageSrc}
+          type={props.type}
         />
       </div>
     </Link>

@@ -8,18 +8,15 @@ import { createContext, useState } from "react";
 export const DetailContext = createContext();
 
 function App() {
-  const [detailData, setDetailData] = useState([]);
-
+  console.log("x");
   return (
-    <DetailContext.Provider value={{ detailData, setDetailData }}>
-      <Routes>
-        <Route index element={<ListPage />} />
-        <Route path="/:list" element={<DetailPage />} />
-        <Route path="/sign-in/*" element={<LoginPage />} />
-        <Route path="/sign-up" element={<SignUpPage />} />
-        <Route path="/Add" element={<AddApps />} />
-      </Routes>
-    </DetailContext.Provider>
+    <Routes>
+      <Route index element={<ListPage />} />
+      <Route path="/:list" element={<DetailPage />} />
+      <Route path="/sign-in/*" element={<LoginPage />} />
+      <Route path="/sign-up" element={<SignUpPage />} />
+      <Route path="/Add" element={<AddApps />} />
+    </Routes>
   );
 }
 

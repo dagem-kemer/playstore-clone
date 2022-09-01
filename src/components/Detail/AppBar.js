@@ -21,6 +21,10 @@ const AppBar = (props) => {
     "flex justify-between px-7 h-[64px] fixed top-0 bg-white w-full animated z-50": true,
     "shadow-xl": isScrolled,
   });
+  const logout = () => {
+    localStorage.removeItem("email");
+    localStorage.removeItem("idToken");
+  };
 
   return (
     <nav className={navStyle}>
@@ -59,7 +63,7 @@ const AppBar = (props) => {
           </NavButton>
         )}
 
-        <NavButton>
+        <NavButton onClick={logout}>
           <CircleUserIcon />
         </NavButton>
       </div>
