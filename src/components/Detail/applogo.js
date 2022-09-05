@@ -1,7 +1,7 @@
 import { useEffect, useReducer, useState } from "react";
 // import "./appdetail.css";
 // import "./output.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import React from "react";
 import { DetailContext } from "../../App";
 import { db } from "../FireBase/firebase-config";
@@ -13,6 +13,7 @@ import {
   doc,
 } from "@firebase/firestore";
 const Applogo = () => {
+  const navigate = useNavigate();
   const [rerender, setRerender] = useState(false);
   const params = useParams();
   const reducer = (state, action) => {
@@ -116,7 +117,7 @@ const Applogo = () => {
                 </button>
               </li>
               <a href="">
-                <li className="navigation">Kemer Store</li>
+                <li className="navigation">Google playStore</li>
               </a>
               <Link to="/">
                 <li className="navigation">Apps</li>
@@ -127,9 +128,16 @@ const Applogo = () => {
               <a href="">
                 <li className="navigation">Trending</li>
               </a>
-              <a href="" target="__blank" className="navigation-right">
+              <button
+                onClick={() => {
+                  localStorage.removeItem("idToken");
+                  localStorage.removeItem("email");
+                  navigate(`/${params.list}`);
+                }}
+                className="navigation-right"
+              >
                 <li className="navigation">Logout</li>
-              </a>
+              </button>
             </ul>
           </nav>
           <div className="flex">

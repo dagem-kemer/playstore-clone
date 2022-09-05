@@ -1,6 +1,6 @@
 import react, { useEffect, useState, useContext, useReducer } from "react";
-// import "./output.css";
-// import "./appdetail.css";
+import "./output.css";
+import "./appdetail.css";
 import { DetailContext } from "../../App";
 import { useParams } from "react-router-dom";
 import { db } from "../FireBase/firebase-config";
